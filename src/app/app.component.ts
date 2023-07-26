@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'InterviewMAite';
+  public loaderComponent = LoaderComponent;
+
 }
