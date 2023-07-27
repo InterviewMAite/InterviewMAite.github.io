@@ -13,7 +13,7 @@
         It enables simultaneous assessments of multiple candidates, accelerating the selection process.
       </p>
       <div class="my-4">
-        <button type="button" class="btn btn-outline-warning">Learn more</button>
+        <button type="button" class="btn btn-outline-warning" (click)="scrollTo(target)">Learn more</button>
       </div>
     </div>
     <div class="col-12 col-md-6">
@@ -39,6 +39,7 @@
           <p><b>Unavailability</b> of a candidate or panel cause time leakage. etc.</p>
         </li>
       </ol>
+      <div #target></div>
     </div>
   </div>
 
@@ -74,5 +75,4 @@
       </div>
     </div>
   </div>
-
 </div>

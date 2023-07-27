@@ -36,4 +36,8 @@ export class PublicComponent {
     }
   ];
 
+  scrollTo(el: HTMLElement): void {
+    el.scrollIntoView();
+  }
+
 }
