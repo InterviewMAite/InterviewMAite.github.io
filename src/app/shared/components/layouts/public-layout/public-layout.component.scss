@@ -4,19 +4,19 @@
   position: fixed;
   width: 100%;
   height: $header-height;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.1);
   z-index: 1;
   top: 0;
 }
 
 .body-content {
   margin-top: $header-height;
-  min-height: calc(90vh - #{$header-height});
+  min-height: calc(93vh - #{$header-height});
 }
 
 @media only screen and (max-width: 1200px) {
   .body-content {
     margin-top: $header-height-responsive-view;
-    min-height: calc(90vh - #{$header-height-responsive-view});
+    min-height: calc(93vh - #{$header-height-responsive-view});
   }
 }

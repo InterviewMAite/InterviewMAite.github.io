@@ -1,3 +1,5 @@
+@import "../../../../../../assets/styles/variables";
+
 .toolbar {
   position: absolute;
   top: 0;
@@ -6,8 +8,8 @@
   height: 60px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
+  background-color: $white;
+  color: $black;
   font-weight: 600;
 }
 
