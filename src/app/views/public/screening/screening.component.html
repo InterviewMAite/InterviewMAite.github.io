@@ -1,0 +1,21 @@
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h3 class="an-1" id="text">Hello {{candidateDetails.name}}, Welcome To InterviewMAite!</h3>
+            <h4 class="mt-4">Phone: {{candidateDetails.phone}}</h4>
+            <h4>Email: {{candidateDetails.email}}</h4>
+            <h4>email: {{candidateDetails.phone}}</h4>
+            <h4>Job Title: {{jobDetails.title}}</h4>
+        </div>
+        <div class="col-12 col-md-6">
+            <vg-player>
+                <vg-overlay-play></vg-overlay-play>
+                <vg-buffering></vg-buffering>
+
+                <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" controls>
+                    <source src="assets/videos/intro.mp4" type="video/mp4">
+                </video>
+            </vg-player>
+        </div>
+    </div>
+</div>

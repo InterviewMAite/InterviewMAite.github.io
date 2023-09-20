@@ -1,0 +1,12 @@
+<h6 class="text-center mb-2">Candidates</h6>
+<div class="candidate card in-active"
+    [ngClass]="{  'active' :selectedCandidate === candidate.id, 'in-active': selectedCandidate !== candidate.id}"
+    *ngFor="let candidate of candidates" (click)="viewDetails(candidate)">
+    <div class="card-body">
+        <p class="name">
+            {{ candidate.firstName }} {{ candidate.lastName }}
+        </p>
+        <p class="email">{{candidate.email}}</p>
+        <p class="phone">{{candidate.mobileNumber}}</p>
+    </div>
+</div>
