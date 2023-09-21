@@ -6,7 +6,7 @@ import { ScreeningComponent } from './screening/screening.component';
 
 const routes: Routes = [
     { path: "", component: PublicComponent },
-    { path: "screening/:screeningId", component: ScreeningComponent },
+    { path: "screening/:candidateId", component: ScreeningComponent },
     { path: "page-not-found", component: NotFoundComponent },
 ];
 

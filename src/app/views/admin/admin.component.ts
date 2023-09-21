@@ -14,12 +14,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
     candidateID: any;
     candidateDetails: ICandidate = {} as ICandidate;
+    screeningLink: string = "";
 
     constructor(
         public toastr: ToastrService,
         public router: Router,
         public activatedRoute: ActivatedRoute,
-        private candidateService: CandidateService,
+        private candidateService: CandidateService
     ) { }
 
     ngOnInit(): void {
@@ -37,6 +38,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.candidateService.getCandidateById(candidateId)
                 .subscribe((response: ICandidate) => {
                     this.candidateDetails = response;
+                    this.screeningLink = window.location.origin + "/screening/" + response.id;
                 })
         );
     }
