@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./public-header.component.scss']
 })
 export class PublicHeaderComponent {
-    navigateToAdmin(): void {
-        debugger
-    }
+
 }
