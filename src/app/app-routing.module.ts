@@ -26,6 +26,7 @@ const APP_ROUTES: Routes = [
 const routerOptions: ExtraOptions = {
     scrollPositionRestoration: "top",
     onSameUrlNavigation: "ignore",
+    useHash: true
 };
 
 @NgModule({
