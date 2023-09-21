@@ -9,6 +9,7 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AdminHeaderComponent } from './admin-layout/admin-header/admin-header.component';
 import { AdminFooterComponent } from './admin-layout/admin-footer/admin-footer.component';
 import { AdminAsideComponent } from './admin-layout/admin-aside/admin-aside.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const components = [
     PublicFooterComponent,
@@ -24,6 +25,8 @@ const components = [
     imports: [
         RouterModule,
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: components,
     exports: components,

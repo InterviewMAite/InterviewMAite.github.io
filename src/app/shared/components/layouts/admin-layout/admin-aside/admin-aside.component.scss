@@ -1,36 +1,50 @@
-.candidate {
-    cursor: pointer;
-    margin-bottom: 5px;
+@import "../../../../../../assets/styles/variables";
 
-    &.card {
-        border-right: transparent;
-        border-radius: 0;
+.candidates {
+    max-height: calc(100vh - (#{$header-height} + #{$footer-height} + 50px));
+    overflow-y: scroll;
+    padding: 0 5px;
 
-        .card-body {
-            padding: 5px;
+    .candidate {
+        cursor: pointer;
+        margin-bottom: 5px;
 
-            .name {
-                font-size: 15px;
-                font-weight: 500;
+        &.card {
+            border-right: transparent;
+            border-radius: 0;
+
+            .card-body {
+                padding: 5px;
+
+                .name {
+                    font-size: 15px;
+                    font-weight: 500;
+                }
+
+                .email,
+                .phone {
+                    font-size: 13px;
+                    line-height: 16px;
+                }
             }
 
-            .email,
-            .phone {
-                font-size: 13px;
-                line-height: 16px;
+            &.active {
+                border: 1px solid green;
+                border-right: 5px solid green;
+                border-left: 5px solid green;
+            }
+
+            &.in-active {
+                border-right: 5px solid #878c92;
+                border-left: 5px solid #878c92;
             }
         }
 
-        &.active {
-            border: 1px solid green;
-            border-right: 5px solid green;
-            border-left: 5px solid green;
-        }
-
-        &.in-active {
-            border-right: 5px solid #878c92;
-            border-left: 5px solid #878c92;
-        }
     }
 
+}
+
+.form-check-label {
+    cursor: pointer;
+    font-size: 14px;
 }

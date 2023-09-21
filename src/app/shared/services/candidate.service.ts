@@ -21,4 +21,12 @@ export class CandidateService {
             ),
         );
     }
+
+    getCandidateById(id: string): Observable<ICandidate> {
+        return this.http.get<ICandidate>(
+            this.constantService.getUrl(
+                `${this.constantService.CANDIDATE}/${id}`
+            ),
+        );
+    }
 }

@@ -8,8 +8,16 @@ export interface ICandidate {
     status: string,
     id: number,
     questionnaire: {
-        additionalProp1: string,
-        additionalProp2: string,
-        additionalProp3: string
+        agileExperience: string;
+        certification: string;
+        designExperience: string;
+        javaExperience: string;
+        javaVersion: string;
+        kafkaExperience: string;
+        microserviceExperience: string;
+        multithreadingExperience: string;
+        newTech: string;
+        salaryExpectation: string;
+        sqlExperience: string;
     }
 }

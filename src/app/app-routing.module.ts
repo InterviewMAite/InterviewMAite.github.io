@@ -3,15 +3,14 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { PublicLayoutComponent } from './shared/components/layouts/public-layout/public-layout.component';
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
 
-const routes: Routes = [];
-
 const APP_ROUTES: Routes = [
     {
         path: "",
         component: PublicLayoutComponent,
         loadChildren: () =>
             import("./views/public/public.module").then((m) => m.PublicModule),
-    }, {
+    },
+    {
         path: "admin",
         component: AdminLayoutComponent,
         loadChildren: () =>
@@ -25,7 +24,7 @@ const APP_ROUTES: Routes = [
 
 const routerOptions: ExtraOptions = {
     scrollPositionRestoration: "top",
-    onSameUrlNavigation: "ignore",
+    onSameUrlNavigation: "ignore"
 };
 
 @NgModule({
