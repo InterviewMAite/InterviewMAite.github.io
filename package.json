@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build --configuration production --base-href https://interviewmaite.github.io/ --public-host=0.0.0.0:0",
+        "build": "ng build --configuration production --base-href https://interviewmaite.github.io/",
         "watch": "ng build --watch --configuration development",
         "test": "ng test"
     },
