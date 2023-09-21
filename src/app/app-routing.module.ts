@@ -3,8 +3,6 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { PublicLayoutComponent } from './shared/components/layouts/public-layout/public-layout.component';
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
 
-const routes: Routes = [];
-
 const APP_ROUTES: Routes = [
     {
         path: "",
@@ -25,8 +23,7 @@ const APP_ROUTES: Routes = [
 
 const routerOptions: ExtraOptions = {
     scrollPositionRestoration: "top",
-    onSameUrlNavigation: "ignore",
-    useHash: true
+    onSameUrlNavigation: "ignore"
 };
 
 @NgModule({

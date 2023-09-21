@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ICandidate } from 'src/app/shared/interfaces/candidate.interface';
@@ -17,6 +18,7 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
     constructor(
         private candidateService: CandidateService,
         public toastr: ToastrService,
+        public router: Router
     ) { }
 
     ngOnInit(): void {
@@ -29,12 +31,18 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
                 .subscribe((response: ICandidate[]) => {
                     this.candidates = response;
                     this.selectedCandidate = this.candidates[0].id;
+                    this.navigateToDetails(this.selectedCandidate);
                 })
         );
     }
 
     viewDetails(candidate: ICandidate): void {
-        this.selectedCandidate = candidate.id
+        this.selectedCandidate = candidate.id;
+        this.navigateToDetails(this.selectedCandidate);
+    }
+
+    navigateToDetails(candidateId: number): void {
+        this.router.navigate(['/admin/' + candidateId]);
     }
 
     ngOnDestroy(): void {
