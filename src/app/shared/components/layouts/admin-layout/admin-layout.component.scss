@@ -23,9 +23,6 @@
             color: $black;
             border-right: 1px solid #eeeeee;
             margin: 0 5px;
-            padding: 0 5px;
-            max-height: calc(100vh - (#{$header-height} + #{$footer-height}));
-            overflow-y: scroll;
         }
 
         .admin-body-content {

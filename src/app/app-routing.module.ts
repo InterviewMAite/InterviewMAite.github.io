@@ -9,7 +9,8 @@ const APP_ROUTES: Routes = [
         component: PublicLayoutComponent,
         loadChildren: () =>
             import("./views/public/public.module").then((m) => m.PublicModule),
-    }, {
+    },
+    {
         path: "admin",
         component: AdminLayoutComponent,
         loadChildren: () =>

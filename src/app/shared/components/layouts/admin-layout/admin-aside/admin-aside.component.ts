@@ -14,6 +14,7 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
     candidates: ICandidate[] = [];
     selectedCandidate: any;
+    filter: boolean = false;
 
     constructor(
         private candidateService: CandidateService,
@@ -23,6 +24,10 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.getCandidates();
+    }
+
+    toggleFilter(): void {
+        this.filter = !this.filter;
     }
 
     getCandidates(): void {
