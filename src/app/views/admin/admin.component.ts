@@ -2,26 +2,30 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { ICandidate } from 'src/app/shared/interfaces/candidate.interface';
+import {
+    ICandidate,
+    IQuestion,
+} from 'src/app/shared/interfaces/candidate.interface';
 import { CandidateService } from 'src/app/shared/services/candidate.service';
 
 @Component({
     selector: 'app-admin',
     templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.scss']
+    styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
     candidateID: any;
     candidateDetails: ICandidate = {} as ICandidate;
-    screeningLink: string = "";
+    questions: IQuestion[] = [];
+    screeningLink: string = '';
 
     constructor(
         public toastr: ToastrService,
         public router: Router,
         public activatedRoute: ActivatedRoute,
         private candidateService: CandidateService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params: any) => {
@@ -35,12 +39,20 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     getCandidateById(candidateId: any): void {
         this.subscription.add(
-            this.candidateService.getCandidateById(candidateId)
+            this.candidateService
+                .getCandidateById(candidateId)
                 .subscribe((response: ICandidate) => {
                     this.candidateDetails = response;
-                    this.screeningLink = window.location.origin + "/screening/" + response.id;
+                    this.questions = response.questionnaire;
+
+                    this.screeningLink =
+                        window.location.origin + '/screening/' + response.id;
                 })
         );
+    }
+
+    navigateToScreening(): void {
+        window.open(this.screeningLink, '_blank');
     }
 
     ngOnDestroy(): void {

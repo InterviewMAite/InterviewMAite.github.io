@@ -1,31 +1,28 @@
-<div class="row">
-    <div class="col-12 col-md-4" *ngIf="candidateDetails?.id">
-        <h6> {{candidateDetails.applyingForPosition}} </h6>
-        <p><b>Name:</b> {{candidateDetails.firstName}} {{candidateDetails.lastName}}</p>
-        <p><b>Email:</b> {{candidateDetails.email}}</p>
-        <p><b>Mobile Number:</b> {{candidateDetails.mobileNumber}}</p>
-        <p><b>Date of Birth:</b> {{candidateDetails.dob | date}}</p>
-    </div>
-    <div class="col-12 col-md-4" *ngIf="candidateDetails?.id">
-        <h6>Questionnaire:</h6>
-        <p><b>Agile Experience:</b> {{candidateDetails.questionnaire.agileExperience}}</p>
-        <p><b>Certification:</b> {{candidateDetails.questionnaire.certification}}</p>
-        <p><b>Design Experience:</b> {{candidateDetails.questionnaire.designExperience}}</p>
-        <p><b>Java Experience:</b> {{candidateDetails.questionnaire.javaExperience}}</p>
-        <p><b>Java Version:</b> {{candidateDetails.questionnaire.javaVersion}}</p>
-        <p><b>Kafka Experience:</b> {{candidateDetails.questionnaire.kafkaExperience}}</p>
-        <p><b>Micro-service Experience:</b> {{candidateDetails.questionnaire.microserviceExperience}}</p>
-        <p><b>Multi-threading Experience:</b> {{candidateDetails.questionnaire.multithreadingExperience}}</p>
-        <p><b>New Tech:</b> {{candidateDetails.questionnaire.newTech}}</p>
-        <p><b>Salary Expectation:</b> {{candidateDetails.questionnaire.salaryExpectation}}</p>
-        <p><b>SQL Experience:</b> {{candidateDetails.questionnaire.sqlExperience}}</p>
+<div class="row" *ngIf="candidateDetails?.id">
+    <div class="col-12 col-md-4">
+        <h6>{{ candidateDetails.applyingForPosition }}</h6>
+        <p>
+            <b>Name:</b> {{ candidateDetails.firstName }}
+            {{ candidateDetails.lastName }}
+        </p>
+        <p><b>Email:</b> {{ candidateDetails.email }}</p>
+        <p><b>Mobile Number:</b> {{ candidateDetails.mobileNumber }}</p>
+        <p><b>Date of Birth:</b> {{ candidateDetails.dob | date }}</p>
     </div>
     <div class="col-12 col-md-4">
+        <h6>Questionnaire:</h6>
+        <p *ngFor="let question of questions">
+            <b>{{ question.question }}:</b>
+            {{ question.response }}
+        </p>
     </div>
-</div>
-<div class="row mt-4">
-    <div class="col-12">
-        <b>Screening Link:</b> <a [href]="screeningLink" class="ml-3" target="_blank"
-            rel="noopener noreferrer">{{screeningLink}}</a>
+    <div class="col-12 col-md-4 text-right">
+        <button
+            type="button"
+            class="btn btn-outline-info"
+            (click)="navigateToScreening()"
+        >
+            Screening Link
+        </button>
     </div>
 </div>

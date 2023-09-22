@@ -5,11 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ICandidate } from 'src/app/shared/interfaces/candidate.interface';
 import { CandidateService } from 'src/app/shared/services/candidate.service';
+import { ConstantService } from 'src/app/shared/services/constant.service';
 
 @Component({
     selector: 'app-admin-aside',
     templateUrl: './admin-aside.component.html',
-    styleUrls: ['./admin-aside.component.scss']
+    styleUrls: ['./admin-aside.component.scss'],
 })
 export class AdminAsideComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
@@ -21,10 +22,11 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
 
     constructor(
         private candidateService: CandidateService,
+        public constantService: ConstantService,
         public toastr: ToastrService,
         private formBuilder: FormBuilder,
         public router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.initForm();
@@ -46,23 +48,31 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
         });
 
         this.subscription.add(
-            this.form.valueChanges.subscribe(value => {
+            this.form.valueChanges.subscribe((value) => {
                 var filtered = Object.keys(value).filter((key) => value[key]);
 
-                this.filteredCandidate = this.candidates.filter(candidate => filtered.includes(candidate.status));
+                this.filteredCandidate = this.candidates.filter((candidate) =>
+                    filtered.includes(candidate.status)
+                );
             })
         );
     }
 
     getCandidates(): void {
         this.subscription.add(
-            this.candidateService.getCandidates()
-                .subscribe((response: ICandidate[]) => {
+            this.candidateService.getCandidates().subscribe(
+                (response: ICandidate[]) => {
                     this.candidates = response;
                     this.filteredCandidate = response;
                     this.selectedCandidate = this.candidates[0].id;
                     this.navigateToDetails(this.selectedCandidate);
-                })
+                },
+                (error: any) => {
+                    if (error && error.status === 403) {
+                        window.open(this.constantService.CORS_URL, '_blank');
+                    }
+                }
+            )
         );
     }
 
