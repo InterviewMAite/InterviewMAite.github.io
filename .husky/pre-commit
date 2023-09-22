@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run build
-cp ./docs/index.html ./404.html
+cp ./docs/index.html ./docs/404.html
 git add ./docs/404.html
