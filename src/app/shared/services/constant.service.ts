@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
     providedIn: "root",
 })
 export class ConstantService {
-    API_URL: string = "http://16.16.0.88:8080/v1/api";
+    API_URL: string = "https://cors-anywhere.herokuapp.com/http://16.16.0.88:8080/v1/api";
     noCacheHttp = {
         headers: new HttpHeaders().set("cache", "no-cache"),
     };
