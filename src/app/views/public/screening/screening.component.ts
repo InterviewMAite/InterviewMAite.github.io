@@ -6,7 +6,7 @@ import { jobs } from 'src/app/inMemoryDB/data';
 import { ICandidate } from 'src/app/shared/interfaces/candidate.interface';
 import { IJob } from 'src/app/shared/interfaces/screening.interface';
 import { CandidateService } from 'src/app/shared/services/candidate.service';
-
+declare var anime: any;
 
 @Component({
     selector: 'app-screening',
