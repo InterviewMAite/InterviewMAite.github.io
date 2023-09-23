@@ -1,23 +1,75 @@
-<div class="row">
-    <div class="col-12 col-md-4" *ngIf="candidateDetails?.id">
-        <h6> {{candidateDetails.applyingForPosition}} </h6>
-        <p><b>Name:</b> {{candidateDetails.firstName}} {{candidateDetails.lastName}}</p>
-        <p><b>Email:</b> {{candidateDetails.email}}</p>
-        <p><b>Mobile Number:</b> {{candidateDetails.mobileNumber}}</p>
-        <p><b>Date of Birth:</b> {{candidateDetails.dob | date}}</p>
+<div class="row" *ngIf="candidateDetails?.id">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12 d-block d-sm-none small-screen">
+                <ng-container *ngTemplateOutlet="actionButton"> </ng-container>
+            </div>
+            <div class="col-12 col-sm-8 mb-3">
+                <h5 class="mt-0">{{ candidateDetails.applyingForPosition }}</h5>
+                <p>
+                    <b>Name:</b> {{ candidateDetails.firstName }}
+                    {{ candidateDetails.lastName }}
+                </p>
+                <p><b>Email:</b> {{ candidateDetails.email }}</p>
+                <p><b>Mobile Number:</b> {{ candidateDetails.mobileNumber }}</p>
+                <p><b>Date of Birth:</b> {{ candidateDetails.dob | date }}</p>
+            </div>
+            <div class="col-12 col-sm-4 d-none d-sm-block">
+                <ng-container *ngTemplateOutlet="actionButton"> </ng-container>
+            </div>
+        </div>
     </div>
-    <div class="col-12 col-md-8" *ngIf="candidateDetails?.id">
-        <h6>Questionnaire:</h6>
-        <p><b>Agile Experience:</b> {{candidateDetails.questionnaire.agileExperience}}</p>
-        <p><b>Certification:</b> {{candidateDetails.questionnaire.certification}}</p>
-        <p><b>Design Experience:</b> {{candidateDetails.questionnaire.designExperience}}</p>
-        <p><b>Java Experience:</b> {{candidateDetails.questionnaire.javaExperience}}</p>
-        <p><b>Java Version:</b> {{candidateDetails.questionnaire.javaVersion}}</p>
-        <p><b>Kafka Experience:</b> {{candidateDetails.questionnaire.kafkaExperience}}</p>
-        <p><b>Micro-service Experience:</b> {{candidateDetails.questionnaire.microserviceExperience}}</p>
-        <p><b>Multi-threading Experience:</b> {{candidateDetails.questionnaire.multithreadingExperience}}</p>
-        <p><b>New Tech:</b> {{candidateDetails.questionnaire.newTech}}</p>
-        <p><b>Salary Expectation:</b> {{candidateDetails.questionnaire.salaryExpectation}}</p>
-        <p><b>SQL Experience:</b> {{candidateDetails.questionnaire.sqlExperience}}</p>
+
+    <div class="col-12">
+        <h5 class="mt-1">Questionnaire:</h5>
+        <p *ngFor="let question of questions" class="mb-1">
+            <b>{{ question.question }}:</b>
+            {{ question.response }}
+        </p>
     </div>
 </div>
+
+<ng-template #actionButton>
+    <div class="text-right mb-3">
+        <button
+            type="button"
+            class="btn btn-danger btn-width"
+            (click)="deleteCandidate()"
+        >
+            Delete Candidate
+        </button>
+    </div>
+    <div class="text-right mb-3">
+        <div class="btn-group dropleft">
+            <button
+                type="button"
+                class="btn dropdown-toggle btn-width"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                id="dropdownMenuButton"
+                [ngClass]="statusValue.class"
+            >
+                {{ statusValue.value }}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a
+                    class="dropdown-item"
+                    (click)="changeStatus(status)"
+                    *ngFor="let status of statusMap"
+                >
+                    {{ status.value }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="text-right mb-3">
+        <button
+            type="button"
+            class="btn btn-outline-info btn-width"
+            (click)="navigateToScreening()"
+        >
+            Screening Link
+        </button>
+    </div>
+</ng-template>

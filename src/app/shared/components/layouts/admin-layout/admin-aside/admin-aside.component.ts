@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ICandidate } from 'src/app/shared/interfaces/candidate.interface';
 import { CandidateService } from 'src/app/shared/services/candidate.service';
+import { ConstantService } from 'src/app/shared/services/constant.service';
 
 @Component({
     selector: 'app-admin-aside',
     templateUrl: './admin-aside.component.html',
-    styleUrls: ['./admin-aside.component.scss']
+    styleUrls: ['./admin-aside.component.scss'],
 })
 export class AdminAsideComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
@@ -21,14 +22,28 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
 
     constructor(
         private candidateService: CandidateService,
+        public constantService: ConstantService,
         public toastr: ToastrService,
+        public activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
         public router: Router
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.initForm();
         this.getCandidates();
+
+        this.activatedRoute.params.subscribe((params: any) => {
+            if (params && params.candidateID) {
+                this.selectedCandidate = params.candidateID;
+            }
+        });
+
+        this.candidateService.willFetchCandidate.subscribe((res: boolean) => {
+            if (res) {
+                this.getCandidates();
+            }
+        });
     }
 
     toggleFilter(): void {
@@ -46,22 +61,28 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
         });
 
         this.subscription.add(
-            this.form.valueChanges.subscribe(value => {
+            this.form.valueChanges.subscribe((value) => {
                 var filtered = Object.keys(value).filter((key) => value[key]);
 
-                this.filteredCandidate = this.candidates.filter(candidate => filtered.includes(candidate.status));
+                this.filteredCandidate = this.candidates.filter((candidate) =>
+                    filtered.includes(candidate.status)
+                );
             })
         );
     }
 
     getCandidates(): void {
         this.subscription.add(
-            this.candidateService.getCandidates()
+            this.candidateService
+                .getCandidates()
                 .subscribe((response: ICandidate[]) => {
                     this.candidates = response;
                     this.filteredCandidate = response;
-                    this.selectedCandidate = this.candidates[0].id;
-                    this.navigateToDetails(this.selectedCandidate);
+
+                    if (!this.selectedCandidate) {
+                        this.selectedCandidate = this.candidates[0].id;
+                        this.navigateToDetails(this.selectedCandidate);
+                    }
                 })
         );
     }
