@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ICandidate } from 'src/app/shared/interfaces/candidate.interface';
@@ -24,6 +24,7 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
         private candidateService: CandidateService,
         public constantService: ConstantService,
         public toastr: ToastrService,
+        public activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
         public router: Router
     ) {}
@@ -31,6 +32,12 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initForm();
         this.getCandidates();
+
+        this.activatedRoute.params.subscribe((params: any) => {
+            if (params && params.candidateID) {
+                this.selectedCandidate = params.candidateID;
+            }
+        });
 
         this.candidateService.willFetchCandidate.subscribe((res: boolean) => {
             if (res) {
@@ -71,8 +78,11 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
                 .subscribe((response: ICandidate[]) => {
                     this.candidates = response;
                     this.filteredCandidate = response;
-                    this.selectedCandidate = this.candidates[0].id;
-                    this.navigateToDetails(this.selectedCandidate);
+
+                    if (!this.selectedCandidate) {
+                        this.selectedCandidate = this.candidates[0].id;
+                        this.navigateToDetails(this.selectedCandidate);
+                    }
                 })
         );
     }

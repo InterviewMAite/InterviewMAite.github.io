@@ -84,6 +84,7 @@ export class AdminComponent implements OnInit, OnDestroy {
                 .subscribe((response: any) => {
                     this.status = status.key;
                     this.statusValue = status;
+                    this.candidateService.parentFetchCandidate(true);
                     this.toastr.success(
                         'Candidate status updated successfully!',
                         'Successful!'
