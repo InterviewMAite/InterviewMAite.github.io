@@ -5,8 +5,10 @@ import { Subscription } from 'rxjs';
 import {
     ICandidate,
     IQuestion,
+    IStatus,
 } from 'src/app/shared/interfaces/candidate.interface';
 import { CandidateService } from 'src/app/shared/services/candidate.service';
+import { status } from './data';
 
 @Component({
     selector: 'app-admin',
@@ -19,6 +21,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     candidateDetails: ICandidate = {} as ICandidate;
     questions: IQuestion[] = [];
     screeningLink: string = '';
+    status: string = '';
+    statusValue: IStatus = {} as IStatus;
+    statusMap: IStatus[] = status;
 
     constructor(
         public toastr: ToastrService,
@@ -44,9 +49,45 @@ export class AdminComponent implements OnInit, OnDestroy {
                 .subscribe((response: ICandidate) => {
                     this.candidateDetails = response;
                     this.questions = response.questionnaire;
+                    this.status = response.status;
+                    const statusVar = this.statusMap.find(
+                        (status: IStatus) => status.key === response.status
+                    );
+                    if (statusVar) {
+                        this.statusValue = statusVar;
+                    }
 
                     this.screeningLink =
                         window.location.origin + '/screening/' + response.id;
+                })
+        );
+    }
+
+    deleteCandidate(): void {
+        this.subscription.add(
+            this.candidateService
+                .deleteCandidateById(this.candidateID)
+                .subscribe((response: any) => {
+                    this.toastr.success(
+                        'Candidate deleted successfully!',
+                        'Successful!'
+                    );
+                    this.candidateService.parentFetchCandidate(true);
+                })
+        );
+    }
+
+    changeStatus(status: IStatus): void {
+        this.subscription.add(
+            this.candidateService
+                .changeCandidateStatusById(this.candidateID, status.key)
+                .subscribe((response: any) => {
+                    this.status = status.key;
+                    this.statusValue = status;
+                    this.toastr.success(
+                        'Candidate status updated successfully!',
+                        'Successful!'
+                    );
                 })
         );
     }

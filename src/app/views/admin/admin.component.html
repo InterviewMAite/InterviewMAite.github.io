@@ -1,5 +1,5 @@
 <div class="row" *ngIf="candidateDetails?.id">
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-8">
         <h6>{{ candidateDetails.applyingForPosition }}</h6>
         <p>
             <b>Name:</b> {{ candidateDetails.firstName }}
@@ -8,21 +8,54 @@
         <p><b>Email:</b> {{ candidateDetails.email }}</p>
         <p><b>Mobile Number:</b> {{ candidateDetails.mobileNumber }}</p>
         <p><b>Date of Birth:</b> {{ candidateDetails.dob | date }}</p>
-    </div>
-    <div class="col-12 col-md-4">
-        <h6>Questionnaire:</h6>
+        <h6 class="mt-4">Questionnaire:</h6>
         <p *ngFor="let question of questions">
             <b>{{ question.question }}:</b>
             {{ question.response }}
         </p>
     </div>
-    <div class="col-12 col-md-4 text-right">
-        <button
-            type="button"
-            class="btn btn-outline-info"
-            (click)="navigateToScreening()"
-        >
-            Screening Link
-        </button>
+    <div class="col-12 col-md-4">
+        <div class="text-right mb-3">
+            <button
+                type="button"
+                class="btn btn-danger btn-width"
+                (click)="deleteCandidate()"
+            >
+                Delete Candidate
+            </button>
+        </div>
+        <div class="text-right mb-3">
+            <div class="btn-group dropleft">
+                <button
+                    type="button"
+                    class="btn dropdown-toggle btn-width"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    id="dropdownMenuButton"
+                    [ngClass]="statusValue.class"
+                >
+                    {{ statusValue.value }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a
+                        class="dropdown-item"
+                        (click)="changeStatus(status)"
+                        *ngFor="let status of statusMap"
+                    >
+                        {{ status.value }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-right mb-3">
+            <button
+                type="button"
+                class="btn btn-outline-info btn-width"
+                (click)="navigateToScreening()"
+            >
+                Screening Link
+            </button>
+        </div>
     </div>
 </div>

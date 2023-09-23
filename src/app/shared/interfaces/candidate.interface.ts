@@ -15,3 +15,9 @@ export interface IQuestion {
     question: string;
     response: string;
 }
+
+export interface IStatus {
+    key: string;
+    value: string;
+    class: string;
+}

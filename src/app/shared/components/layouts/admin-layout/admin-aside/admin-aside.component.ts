@@ -31,6 +31,12 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initForm();
         this.getCandidates();
+
+        this.candidateService.willFetchCandidate.subscribe((res: boolean) => {
+            if (res) {
+                this.getCandidates();
+            }
+        });
     }
 
     toggleFilter(): void {
@@ -60,19 +66,14 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
 
     getCandidates(): void {
         this.subscription.add(
-            this.candidateService.getCandidates().subscribe(
-                (response: ICandidate[]) => {
+            this.candidateService
+                .getCandidates()
+                .subscribe((response: ICandidate[]) => {
                     this.candidates = response;
                     this.filteredCandidate = response;
                     this.selectedCandidate = this.candidates[0].id;
                     this.navigateToDetails(this.selectedCandidate);
-                },
-                (error: any) => {
-                    if (error && error.status === 403) {
-                        window.open(this.constantService.CORS_URL, '_blank');
-                    }
-                }
-            )
+                })
         );
     }
 
