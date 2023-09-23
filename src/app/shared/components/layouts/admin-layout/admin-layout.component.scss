@@ -1,4 +1,4 @@
-@import "../../../../../assets/styles/variables";
+@import '../../../../../assets/styles/variables';
 
 .admin-wrap {
     .admin-header {
@@ -14,25 +14,19 @@
     .admin-body {
         margin-top: $header-height;
         min-height: calc(100vh - (#{$header-height} + #{$footer-height}));
-        display: flex;
-        flex-direction: row;
 
         .admin-aside {
-            width: $aside;
             background-color: $white-transparent;
             color: $black;
             border-right: 1px solid #eeeeee;
-            margin: 0 5px;
         }
 
         .admin-body-content {
-            width: calc(100vw - #{$aside});
             padding: 20px;
             background-color: $white-transparent;
             color: $black;
         }
     }
-
 }
 
 @media only screen and (max-width: 1200px) {
@@ -40,7 +34,10 @@
         .admin-body {
             .body-content {
                 margin-top: $header-height-responsive-view;
-                min-height: calc(100vh - (#{$header-height-responsive-view} + #{$footer-height}));
+                min-height: calc(
+                    100vh -
+                        (#{$header-height-responsive-view} + #{$footer-height})
+                );
             }
         }
     }

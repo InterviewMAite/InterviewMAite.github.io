@@ -1,16 +1,20 @@
-<div class="admin-wrap">
-    <div class="admin-header">
-        <app-admin-header></app-admin-header>
-    </div>
-    <div class="admin-body">
-        <div class="admin-aside">
-            <app-admin-aside></app-admin-aside>
+<div class="container-fluid">
+    <div class="row admin-wrap">
+        <div class="col-12 admin-header">
+            <app-admin-header></app-admin-header>
         </div>
-        <div class="admin-body-content">
-            <router-outlet></router-outlet>
+        <div class="col-12 admin-body">
+            <div class="row">
+                <div class="col-12 col-md-3 admin-aside">
+                    <app-admin-aside></app-admin-aside>
+                </div>
+                <div class="col-12 col-md-9 admin-body-content">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="admin-footer">
-        <app-public-footer></app-public-footer>
+        <div class="col-12 admin-footer">
+            <app-public-footer></app-public-footer>
+        </div>
     </div>
 </div>
