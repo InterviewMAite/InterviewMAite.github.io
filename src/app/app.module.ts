@@ -9,6 +9,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 import { LayoutsModule } from './shared/components/layouts/layouts.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpConfigInterceptor } from './shared/services/httpconfig.interceptor';
+
 @NgModule({
     declarations: [AppComponent],
     imports: [

@@ -1,23 +1,97 @@
-<div class="container pt-5">
+<div class="container pt-1">
     <div class="row">
-        <div class="col-12 col-md-6">
-            <h5 class="an-1" id="text">
-                Hello {{candidateDetails.firstName}} {{candidateDetails.lastName}},<br>
-                Welcome To InterviewMAite!
-            </h5>
-            <h4 class="mt-4">Phone: {{candidateDetails.mobileNumber}}</h4>
-            <h4>Email: {{candidateDetails.email}}</h4>
-            <!-- <h4>Job Title: {{jobDetails.title}}</h4> -->
-        </div>
-        <div class="col-12 col-md-6">
-            <vg-player>
-                <vg-overlay-play></vg-overlay-play>
-                <vg-buffering></vg-buffering>
-
-                <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" controls>
-                    <source src="assets/videos/intro.mp4" type="video/mp4">
-                </video>
-            </vg-player>
+        <div class="col-12">
+            <mat-stepper
+                class="example-stepper"
+                [orientation]="(stepperOrientation | async)!"
+            >
+                <mat-step label="Start" editable="false">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <h5 class="">
+                                Hello {{ candidateDetails.firstName }}
+                                {{ candidateDetails.lastName }}, Welcome To
+                                InterviewMAite!
+                            </h5>
+                            <h5 class="mt-4">
+                                Phone: {{ candidateDetails.mobileNumber }}
+                            </h5>
+                            <h5>Email: {{ candidateDetails.email }}</h5>
+                            <!-- <h4>Job Title: {{jobDetails.title}}</h4> -->
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <video controls preload="auto" class="video">
+                                <source
+                                    src="assets/videos/intro.mp4"
+                                    type="video/mp4"
+                                />
+                                <source src="movie.ogg" type="video/ogg" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="col-12 text-right mt-4">
+                            <button
+                                type="button"
+                                mat-button
+                                mat-raised-button
+                                color="primary"
+                                matStepperNext
+                            >
+                                Start
+                            </button>
+                        </div>
+                    </div>
+                </mat-step>
+                <mat-step
+                    [stepControl]="secondFormGroup"
+                    label="Fill out your address"
+                    editable="false"
+                >
+                    <form [formGroup]="secondFormGroup">
+                        <mat-form-field>
+                            <mat-label>Address</mat-label>
+                            <input
+                                matInput
+                                formControlName="secondCtrl"
+                                placeholder="Ex. 1 Main St, New York, NY"
+                                required
+                            />
+                        </mat-form-field>
+                        <div>
+                            <button type="button" mat-button matStepperNext>
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step
+                    [stepControl]="thirdFormGroup"
+                    label="Fill out your phone number"
+                    editable="false"
+                >
+                    <form [formGroup]="thirdFormGroup">
+                        <mat-form-field>
+                            <mat-label>Phone number</mat-label>
+                            <input
+                                matInput
+                                formControlName="thirdCtrl"
+                                placeholder="Ex. 12345678"
+                                required
+                            />
+                        </mat-form-field>
+                        <div>
+                            <button type="button" mat-button matStepperNext>
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step editable="false">
+                    <ng-template matStepLabel>Done</ng-template>
+                    <p>You are now done.</p>
+                    <div></div>
+                </mat-step>
+            </mat-stepper>
         </div>
     </div>
 </div>

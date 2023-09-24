@@ -61,7 +61,7 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
         });
 
         this.subscription.add(
-            this.form.valueChanges.subscribe((value) => {
+            this.form.valueChanges.subscribe((value: any) => {
                 var filtered = Object.keys(value).filter((key) => value[key]);
 
                 this.filteredCandidate = this.candidates.filter((candidate) =>
