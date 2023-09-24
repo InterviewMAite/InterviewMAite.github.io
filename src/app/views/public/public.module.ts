@@ -11,6 +11,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { PublicComponent } from './public.component';
 import { ScreeningComponent } from './screening/screening.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VideoRecordingService } from '@services/video-recording.service';
 
 @NgModule({
     declarations: [PublicComponent, NotFoundComponent, ScreeningComponent],
@@ -25,5 +26,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         FormsModule,
         ReactiveFormsModule,
     ],
+    providers: [VideoRecordingService],
 })
 export class PublicModule {}

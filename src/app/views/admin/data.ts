@@ -1,4 +1,4 @@
-import { IStatus } from 'src/app/shared/interfaces/candidate.interface';
+import { IStatus } from '@interfaces/candidate.interface';
 
 export const status: IStatus[] = [
     {

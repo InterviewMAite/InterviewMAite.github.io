@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ConstantService } from './constant.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ICandidate } from '../interfaces/candidate.interface';
+import { ICandidate } from '@interfaces/candidate.interface';
 
 @Injectable({
     providedIn: 'root',

@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { CandidateService } from 'src/app/shared/services/candidate.service';
+import { status } from './data';
 import {
     ICandidate,
     IQuestion,
     IStatus,
-} from 'src/app/shared/interfaces/candidate.interface';
-import { CandidateService } from 'src/app/shared/services/candidate.service';
-import { status } from './data';
+} from '@interfaces/candidate.interface';
 
 @Component({
     selector: 'app-admin',
