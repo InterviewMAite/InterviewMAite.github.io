@@ -1,4 +1,4 @@
-<div class="container pt-1">
+<div class="container-fluid pt-1">
     <div class="row">
         <div class="col-12">
             <mat-stepper
@@ -28,53 +28,77 @@
                                 Your browser does not support the video tag.
                             </video>
                         </div>
-
-                        <div class="video">
-                            <button
-                                class="start-button"
-                                *ngIf="!isVideoRecording && !videoBlobUrl"
-                                (click)="startVideoRecording()"
-                            >
-                                Start Video Recording
-                            </button>
-                            <button
-                                class="stop-button"
-                                *ngIf="isVideoRecording && !videoBlobUrl"
-                                (click)="stopVideoRecording()"
-                            >
-                                Stop Video Recording
-                            </button>
-                            <button
-                                class="cancel-button"
-                                *ngIf="!isVideoRecording && videoBlobUrl"
-                                (click)="clearVideoRecordedData()"
-                            >
-                                Clear Video Recording
-                            </button>
-                            <button
-                                class="download-button"
-                                *ngIf="!isVideoRecording && videoBlobUrl"
-                                (click)="downloadVideoRecordedData()"
-                            >
-                                Download Video Recording
-                            </button>
-                            <div
-                                id="videoTimer"
-                                *ngIf="isVideoRecording && !videoBlobUrl"
-                            >
-                                {{ videoRecordedTime }}
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6 text-center">
+                                    <div class="video mt-5 mb-3">
+                                        <button
+                                            class="start-button"
+                                            *ngIf="
+                                                !isVideoRecording &&
+                                                !videoBlobUrl
+                                            "
+                                            (click)="startVideoRecording()"
+                                        >
+                                            Start Video Recording
+                                        </button>
+                                        <button
+                                            class="stop-button"
+                                            *ngIf="
+                                                isVideoRecording &&
+                                                !videoBlobUrl
+                                            "
+                                            (click)="stopVideoRecording()"
+                                        >
+                                            Stop Video Recording
+                                        </button>
+                                        <button
+                                            class="cancel-button"
+                                            *ngIf="
+                                                !isVideoRecording &&
+                                                videoBlobUrl
+                                            "
+                                            (click)="clearVideoRecordedData()"
+                                        >
+                                            Clear Video Recording
+                                        </button>
+                                        <button
+                                            class="download-button"
+                                            *ngIf="
+                                                !isVideoRecording &&
+                                                videoBlobUrl
+                                            "
+                                            (click)="
+                                                downloadVideoRecordedData()
+                                            "
+                                        >
+                                            Download Video Recording
+                                        </button>
+                                        <div
+                                            id="videoTimer"
+                                            *ngIf="
+                                                isVideoRecording &&
+                                                !videoBlobUrl
+                                            "
+                                        >
+                                            {{ videoRecordedTime }}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <video #videoElement class="video">
+                                            <source
+                                                *ngIf="
+                                                    !isVideoRecording &&
+                                                    videoBlobUrl
+                                                "
+                                                [src]="videoBlobUrl"
+                                            />
+                                        </video>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="text-center">
-                            <video #videoElement class="video">
-                                <source
-                                    *ngIf="!isVideoRecording && videoBlobUrl"
-                                    [src]="videoBlobUrl"
-                                />
-                            </video>
-                        </div>
-
                         <div class="col-12 text-right mt-4">
                             <button
                                 type="button"

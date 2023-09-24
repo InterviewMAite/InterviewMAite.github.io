@@ -3,23 +3,31 @@
         <div class="col-12 col-md-6">
             <h1>InterviewMAite</h1>
             <h4 class="mb-4">Enhancing the Interview Process with AI.</h4>
-            <p>
-                InterviewMAite is an innovative solution that leverages generative AI technology. It aims to automate
-                and
-                enhance various aspects of the interview process. By analyzing candidate responses, Interviewer AI
-                provides
-                objective insights for better decision-making.
+            <p class="mb-2">
+                InterviewMAite is an innovative solution that leverages
+                generative AI technology. It aims to automate and enhance
+                various aspects of the interview process. By analyzing candidate
+                responses, Interviewer AI provides objective insights for better
+                decision-making.
             </p>
             <p>
-                InterviewMAite streamlines the interview process, reducing the time and resources required for hiring.
-                It enables simultaneous assessments of multiple candidates, accelerating the selection process.
+                InterviewMAite streamlines the interview process, reducing the
+                time and resources required for hiring. It enables simultaneous
+                assessments of multiple candidates, accelerating the selection
+                process.
             </p>
             <div class="my-4">
-                <button type="button" class="btn btn-outline-warning" (click)="scrollTo(target)">Learn more</button>
+                <button
+                    type="button"
+                    class="btn btn-outline-warning"
+                    (click)="scrollTo(target)"
+                >
+                    Learn more
+                </button>
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <img src="assets/images/banner.svg" alt="" class="img-fluid">
+            <img src="assets/images/banner.svg" alt="" class="img-fluid" />
         </div>
     </div>
 
@@ -29,19 +37,29 @@
             <p class="text-muted">Disadvantage of current interview process.</p>
             <ol>
                 <li>
-                    <p>Traditional interview processes are <b>time-consuming</b> and rely heavily on <b>manual
-                            assessment</b>.</p>
-                </li>
-                <li>
-                    <p>Subjectivity in evaluating candidate responses can lead to <b>biases</b> and
-                        <b>inconsistencies</b>.
+                    <p>
+                        Traditional interview processes are
+                        <b>time-consuming</b> and rely heavily on
+                        <b>manual assessment</b>.
                     </p>
                 </li>
                 <li>
-                    <p>The process can be <b>resource-intensive</b> and <b>costly</b> for organizations.</p>
+                    <p>
+                        Subjectivity in evaluating candidate responses can lead
+                        to <b>biases</b> and <b>inconsistencies</b>.
+                    </p>
                 </li>
                 <li>
-                    <p><b>Unavailability</b> of a candidate or panel cause time leakage. etc.</p>
+                    <p>
+                        The process can be <b>resource-intensive</b> and
+                        <b>costly</b> for organizations.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <b>Unavailability</b> of a candidate or panel cause time
+                        leakage. etc.
+                    </p>
                 </li>
             </ol>
             <div #target></div>
@@ -50,34 +68,39 @@
 
     <div class="row mt-4 mb-5 key-features">
         <div class="col-12">
-            <h1 class="heading">Candidate Screening with <br><strong>InterviewMAite</strong></h1>
+            <h1 class="heading">
+                Candidate Screening with <br /><strong>InterviewMAite</strong>
+            </h1>
             <div class="line">
-                <img src="assets/images/line.png" alt="" srcset="">
+                <img src="assets/images/line.png" alt="" srcset="" />
             </div>
             <div class="info">
                 <p>
-                    InterviewMAite is a GPT4-powered screening software offers a revolutionary approach that goes beyond
-                    simple
-                    keyword matching.
-                    InterviewMAite uses <strong>Natural Language Processing (NLP)</strong> to improve the efficiency of
-                    screening
-                    candidates.
-                    It is capable to provide <strong>Real Time Feedback</strong> to candidates.
-                    It helps to <strong>Automate Assignment</strong>. InterviewMAite can be easily scaled to accommodate
-                    a high
-                    volume of interviews and diverse job roles. It will offer <strong>flexibility and
-                        adaptability</strong> to
-                    meet the changing needs of organizations.
+                    InterviewMAite is a GPT4-powered screening software offers a
+                    revolutionary approach that goes beyond simple keyword
+                    matching. InterviewMAite uses
+                    <strong>Natural Language Processing (NLP)</strong> to
+                    improve the efficiency of screening candidates. It is
+                    capable to provide <strong>Real Time Feedback</strong> to
+                    candidates. It helps to
+                    <strong>Automate Assignment</strong>. InterviewMAite can be
+                    easily scaled to accommodate a high volume of interviews and
+                    diverse job roles. It will offer
+                    <strong>flexibility and adaptability</strong> to meet the
+                    changing needs of organizations.
                 </p>
             </div>
         </div>
         <div class="col-12 mt-4">
             <div class="row">
-                <div class="col-12 col-md-4 mb-4" *ngFor="let feature of features">
+                <div
+                    class="col-12 col-md-4 mb-4"
+                    *ngFor="let feature of features"
+                >
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{feature.title}}</h5>
-                            <p class="card-text">{{feature.desc}}</p>
+                            <h5 class="card-title">{{ feature.title }}</h5>
+                            <p class="card-text">{{ feature.desc }}</p>
                         </div>
                     </div>
                 </div>
