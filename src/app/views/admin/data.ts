@@ -1,6 +1,6 @@
 import { IStatus } from '@interfaces/candidate.interface';
 
-export const status: IStatus[] = [
+export const statuses: IStatus[] = [
     {
         key: 'PENDING',
         value: 'Pending',

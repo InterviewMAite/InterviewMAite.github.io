@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/shared/services/candidate.service';
-import { status } from './data';
+import { statuses } from './data';
 import {
     ICandidate,
     IQuestion,
@@ -23,7 +23,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     screeningLink: string = '';
     status: string = '';
     statusValue: IStatus = {} as IStatus;
-    statusMap: IStatus[] = status;
+    statusMap: IStatus[] = statuses;
 
     constructor(
         public toastr: ToastrService,
