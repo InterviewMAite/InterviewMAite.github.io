@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+import { ConstantService } from './constant.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ICandidate } from '@interfaces/candidate.interface';
+import {
+    IScreeningQuestion,
+    IValidateScreeningResponse,
+} from '@interfaces/screening.interface';
+
+@Injectable({
+    providedIn: 'root',
+})
+export class ScreeningService {
+    constructor(
+        public http: HttpClient,
+        public constantService: ConstantService
+    ) {}
+
+    validateScreening(
+        screeningID: string
+    ): Observable<IValidateScreeningResponse> {
+        return this.http.post<IValidateScreeningResponse>(
+            this.constantService.getUrl(
+                `${this.constantService.VALIDATE_SCREENING_ID}/${screeningID}`
+            ),
+            {}
+        );
+    }
+
+    saveResponses(screeningID: string): Observable<any> {
+        return this.http.post<any>(
+            this.constantService.getUrl(
+                `${this.constantService.SCREENING_RESPONSE_ID}/${screeningID}`
+            ),
+            {}
+        );
+    }
+
+    getScreeningQuestion(screeningID: string): Observable<IScreeningQuestion> {
+        return this.http.get<IScreeningQuestion>(
+            this.constantService.getUrl(
+                `${this.constantService.GET_SCREENING_QUESTION}/${screeningID}`
+            )
+        );
+    }
+}

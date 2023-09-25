@@ -6,98 +6,29 @@
                 [orientation]="(stepperOrientation | async)!"
             >
                 <mat-step label="Start" editable="false">
-                    <div class="row">
+                    <div class="row" *ngIf="screeningDetails?.id">
                         <div class="col-12 col-md-6">
-                            <h5 class="">
-                                Hello {{ candidateDetails.firstName }}
-                                {{ candidateDetails.lastName }}, Welcome To
-                                InterviewMAite!
-                            </h5>
-                            <h5 class="mt-4">
-                                Phone: {{ candidateDetails.mobileNumber }}
-                            </h5>
-                            <h5>Email: {{ candidateDetails.email }}</h5>
+                            <p class="">
+                                Hello {{ screeningDetails.candidateFirstName }},
+                                welcome To InterviewMAite!
+                            </p>
+                            <p>
+                                You have applied for the position
+                                {{ screeningDetails.appliedPosition }}.
+                            </p>
+                            <p class="mt-4">
+                                Phone:
+                                {{ screeningDetails.candidatePhoneNumber }}
+                            </p>
+                            <p>Email: {{ screeningDetails.candidateEmail }}</p>
                         </div>
                         <div class="col-12 col-md-6">
-                            <video controls preload="auto" class="video">
+                            <video controls autoplay class="video">
                                 <source
                                     src="assets/videos/intro.mp4"
                                     type="video/mp4"
                                 />
-                                <source src="movie.ogg" type="video/ogg" />
-                                Your browser does not support the video tag.
                             </video>
-                        </div>
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6 text-center">
-                                    <div class="video mt-5 mb-3">
-                                        <button
-                                            class="start-button"
-                                            *ngIf="
-                                                !isVideoRecording &&
-                                                !videoBlobUrl
-                                            "
-                                            (click)="startVideoRecording()"
-                                        >
-                                            Start Video Recording
-                                        </button>
-                                        <button
-                                            class="stop-button"
-                                            *ngIf="
-                                                isVideoRecording &&
-                                                !videoBlobUrl
-                                            "
-                                            (click)="stopVideoRecording()"
-                                        >
-                                            Stop Video Recording
-                                        </button>
-                                        <button
-                                            class="cancel-button"
-                                            *ngIf="
-                                                !isVideoRecording &&
-                                                videoBlobUrl
-                                            "
-                                            (click)="clearVideoRecordedData()"
-                                        >
-                                            Clear Video Recording
-                                        </button>
-                                        <button
-                                            class="download-button"
-                                            *ngIf="
-                                                !isVideoRecording &&
-                                                videoBlobUrl
-                                            "
-                                            (click)="
-                                                downloadVideoRecordedData()
-                                            "
-                                        >
-                                            Download Video Recording
-                                        </button>
-                                        <div
-                                            id="videoTimer"
-                                            *ngIf="
-                                                isVideoRecording &&
-                                                !videoBlobUrl
-                                            "
-                                        >
-                                            {{ videoRecordedTime }}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <video #videoElement class="video">
-                                            <source
-                                                *ngIf="
-                                                    !isVideoRecording &&
-                                                    videoBlobUrl
-                                                "
-                                                [src]="videoBlobUrl"
-                                            />
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-12 text-right mt-4">
                             <button
@@ -106,56 +37,101 @@
                                 mat-raised-button
                                 color="primary"
                                 matStepperNext
+                                (click)="getScreeningQuestion()"
                             >
                                 Start
                             </button>
                         </div>
                     </div>
                 </mat-step>
-                <mat-step
-                    [stepControl]="secondFormGroup"
-                    label="Fill out your address"
-                    editable="false"
-                >
-                    <form [formGroup]="secondFormGroup">
-                        <mat-form-field>
-                            <mat-label>Address</mat-label>
-                            <input
-                                matInput
-                                formControlName="secondCtrl"
-                                placeholder="Ex. 1 Main St, New York, NY"
-                                required
-                            />
-                        </mat-form-field>
-                        <div>
-                            <button type="button" mat-button matStepperNext>
+
+                <mat-step label="Question" editable="false">
+                    <div class="row">
+                        <div
+                            class="col-12 col-md-6"
+                            *ngIf="question?.questionId"
+                        >
+                            <video controls autoplay class="video">
+                                <source
+                                    [src]="question.questionLink"
+                                    type="video/mp4"
+                                />
+                            </video>
+                            <h6 class="mt-3">
+                                <b>Q:</b> {{ question.questionText }}
+                            </h6>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <video #videoElement class="video">
+                                <source
+                                    *ngIf="!isVideoRecording && videoBlobUrl"
+                                    [src]="videoBlobUrl"
+                                />
+                            </video>
+                        </div>
+                        <div class="col-12 text-right mt-4">
+                            <div class="mt-5 mb-3">
+                                <button
+                                    class="start-button"
+                                    *ngIf="!isVideoRecording && !videoBlobUrl"
+                                    (click)="startVideoRecording()"
+                                >
+                                    Start Video Recording
+                                </button>
+                                <button
+                                    class="stop-button"
+                                    *ngIf="isVideoRecording && !videoBlobUrl"
+                                    (click)="stopVideoRecording()"
+                                >
+                                    Stop Video Recording
+                                </button>
+                                <button
+                                    class="cancel-button"
+                                    *ngIf="!isVideoRecording && videoBlobUrl"
+                                    (click)="clearVideoRecordedData()"
+                                >
+                                    Clear Video Recording
+                                </button>
+                                <button
+                                    class="download-button"
+                                    *ngIf="!isVideoRecording && videoBlobUrl"
+                                    (click)="downloadVideoRecordedData()"
+                                >
+                                    Download Video Recording
+                                </button>
+                                <div
+                                    id="videoTimer"
+                                    *ngIf="isVideoRecording && !videoBlobUrl"
+                                >
+                                    {{ videoRecordedTime }}
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                mat-button
+                                mat-raised-button
+                                color="secondary"
+                                matStepperNext
+                                class="mr-4"
+                                (click)="getScreeningQuestion()"
+                            >
+                                Skip
+                            </button>
+
+                            <button
+                                type="button"
+                                mat-button
+                                mat-raised-button
+                                color="primary"
+                                matStepperNext
+                                (click)="getScreeningQuestion()"
+                            >
                                 Next
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </mat-step>
-                <mat-step
-                    [stepControl]="thirdFormGroup"
-                    label="Fill out your phone number"
-                    editable="false"
-                >
-                    <form [formGroup]="thirdFormGroup">
-                        <mat-form-field>
-                            <mat-label>Phone number</mat-label>
-                            <input
-                                matInput
-                                formControlName="thirdCtrl"
-                                placeholder="Ex. 12345678"
-                                required
-                            />
-                        </mat-form-field>
-                        <div>
-                            <button type="button" mat-button matStepperNext>
-                                Next
-                            </button>
-                        </div>
-                    </form>
-                </mat-step>
+
                 <mat-step editable="false">
                     <ng-template matStepLabel>Done</ng-template>
                     <p>You are now done.</p>

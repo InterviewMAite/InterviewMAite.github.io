@@ -7,15 +7,17 @@ import {
 } from '@angular/core';
 import { StepperOrientation } from '@angular/material/stepper';
 import { map } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CandidateService } from '@services/candidate.service';
 import { VideoRecordingService } from '@services/video-recording.service';
-import { ICandidate } from '@interfaces/candidate.interface';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ScreeningService } from '@services/screening.service';
+import {
+    IScreeningQuestion,
+    IValidateScreeningResponse,
+} from '@interfaces/screening.interface';
 
 @Component({
     selector: 'app-screening',
@@ -24,16 +26,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ScreeningComponent implements OnInit, OnDestroy {
     subscription = new Subscription();
-    candidateId: string = '';
-    candidateDetails: ICandidate = {} as ICandidate;
+    screeningId: string = '';
+    screeningDetails: IValidateScreeningResponse =
+        {} as IValidateScreeningResponse;
+    question: IScreeningQuestion = {} as IScreeningQuestion;
     stepperOrientation: Observable<StepperOrientation>;
-
-    secondFormGroup: FormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required],
-    });
-    thirdFormGroup: FormGroup = this._formBuilder.group({
-        thirdCtrl: ['', Validators.required],
-    });
 
     isVideoRecording = false;
     videoBlobUrl: any;
@@ -53,8 +50,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         public activatedRoute: ActivatedRoute,
         public router: Router,
         public toastr: ToastrService,
-        private _formBuilder: FormBuilder,
-        private candidateService: CandidateService,
+        private screeningService: ScreeningService,
         public breakpointObserver: BreakpointObserver,
         private videoRecordingService: VideoRecordingService,
         private ref: ChangeDetectorRef,
@@ -89,32 +85,34 @@ export class ScreeningComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params: any) => {
-            if (params && params.candidateId) {
-                this.candidateId = params.candidateId;
-
-                this.fetchCandidateDetails(this.candidateId);
+            if (params && params.screeningId) {
+                this.screeningId = params.screeningId;
+                this.validateScreeningId(this.screeningId);
             }
         });
     }
 
     ngAfterViewInit() {
-        this.video = this.videoElement.nativeElement;
+        // this.video = this.videoElement.nativeElement;
     }
 
-    fetchCandidateDetails(candidateId: string): void {
+    validateScreeningId(screeningId: string): void {
         this.subscription.add(
-            this.candidateService
-                .getCandidateById(candidateId)
-                .subscribe((response: ICandidate) => {
-                    this.candidateDetails = response;
+            this.screeningService
+                .validateScreening(screeningId)
+                .subscribe((response: IValidateScreeningResponse) => {
+                    this.screeningDetails = response;
+                })
+        );
+    }
 
-                    if (!this.candidateDetails) {
-                        this.toastr.error(
-                            'Invalid Screening Id, Navigating to home!',
-                            'Error!'
-                        );
-                        this.router.navigate(['/']);
-                    }
+    getScreeningQuestion(): void {
+        this.subscription.add(
+            this.screeningService
+                .getScreeningQuestion(this.screeningId)
+                .subscribe((response: IScreeningQuestion) => {
+                    this.question = response;
+                    this.video = this.videoElement.nativeElement;
                 })
         );
     }
