@@ -47,31 +47,44 @@
                 </mat-step>
 
                 <mat-step label="Questions" editable="false">
-                    <div class="row" *ngIf="!question?.interviewComplete">
+                    <div class="row">
                         <div
                             class="col-12 col-md-6"
                             *ngIf="question?.questionId"
                         >
-                            <video
-                                controls
-                                autoplay
-                                class="video"
-                                [src]="question.questionLink"
-                                type="video/mp4"
-                            ></video>
+                            <div class="video-container">
+                                <h6 class="user">InterviewMAite</h6>
+                                <video
+                                    controls
+                                    autoplay
+                                    class="video"
+                                    [src]="question.questionLink"
+                                    type="video/mp4"
+                                ></video>
+                            </div>
                             <h6 class="mt-3">
-                                <b>Q:</b> {{ question.questionText }}
+                                <b>Q{{ question.questionId }}:</b>
+                                {{ question.questionText }}
                             </h6>
                         </div>
                         <div class="col-12 col-md-6">
-                            <video
-                                #videoElement
-                                class="video"
-                                *ngIf="!isVideoRecording && videoBlobUrl"
-                                [src]="videoBlobUrl"
-                            ></video>
+                            <div class="video-container">
+                                <h6 class="user">
+                                    {{ screeningDetails.candidateFirstName }}
+                                </h6>
+
+                                <video
+                                    #videoElement
+                                    class="video"
+                                    [src]="videoBlobUrl"
+                                ></video>
+                            </div>
+                            <!-- *ngIf="!isVideoRecording && videoBlobUrl" -->
                         </div>
-                        <div class="col-12 text-right mt-4">
+                        <div
+                            class="col-12 text-right mt-4"
+                            *ngIf="!question?.interviewComplete"
+                        >
                             <div class="mt-3 mb-3">
                                 <button
                                     class="start-button"
@@ -122,7 +135,7 @@
                                     class="mr-4"
                                     (click)="skip()"
                                 >
-                                    Skip
+                                    Not Aware
                                 </button>
 
                                 <button
@@ -150,7 +163,7 @@
                                     matStepperNext
                                     (click)="skip()"
                                 >
-                                    Skip
+                                    Not Aware
                                 </button>
 
                                 <button
