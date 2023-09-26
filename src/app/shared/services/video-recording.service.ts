@@ -64,11 +64,11 @@ export class VideoRecordingService {
         });
     }
 
-    abortRecording() {
+    abortRecording(): void {
         this.stopMedia();
     }
 
-    private record() {
+    private record(): void {
         this.recorder = new RecordRTC(this.stream, {
             type: 'video',
             mimeType: 'video/webm',
@@ -88,7 +88,7 @@ export class VideoRecordingService {
         }, 500);
     }
 
-    private toString(value: any) {
+    private toString(value: any): void {
         let val = value;
         if (!value) {
             val = '00';
@@ -99,7 +99,7 @@ export class VideoRecordingService {
         return val;
     }
 
-    stopRecording() {
+    stopRecording(): void {
         if (this.recorder) {
             this.recorder.stopRecording(this.processVideo.bind(this));
             //this.processVideo.bind(this.recorder)
@@ -108,7 +108,7 @@ export class VideoRecordingService {
         }
     }
 
-    private processVideo(audioVideoWebMURL: any) {
+    private processVideo(audioVideoWebMURL: any): void {
         // console.log(audioVideoWebMURL);
         const recordedBlob = this.recorder.getBlob();
         this.recorder.getDataURL(function (dataURL: any) {});
@@ -124,7 +124,7 @@ export class VideoRecordingService {
         //this.recorder.save(recordedName);
     }
 
-    private stopMedia() {
+    private stopMedia(): void {
         if (this.recorder) {
             this.recorder = null;
             clearInterval(this.interval);

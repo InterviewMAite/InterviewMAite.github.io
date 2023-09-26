@@ -26,13 +26,14 @@ import {
     styleUrls: ['./screening.component.scss'],
 })
 export class ScreeningComponent implements OnInit, OnDestroy {
+    @ViewChild('videoElement', { static: false }) videoElement: any;
     subscription = new Subscription();
     screeningId: string = '';
     screeningDetails: IValidateScreeningResponse =
         {} as IValidateScreeningResponse;
     question: IScreeningQuestion = {} as IScreeningQuestion;
     stepperOrientation: Observable<StepperOrientation>;
-
+    progress = 0;
     invalid = false;
     isVideoRecording = false;
     videoBlobUrl: any;
@@ -44,8 +45,6 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         audio: true,
     };
     videoStream: MediaStream = {} as MediaStream;
-    @ViewChild('videoElement', { static: false }) videoElement: any;
-
     video: any;
 
     constructor(
@@ -94,10 +93,6 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngAfterViewInit() {
-        // this.video = this.videoElement.nativeElement;
-    }
-
     validateScreeningId(screeningId: string): void {
         this.subscription.add(
             this.screeningService
@@ -119,6 +114,11 @@ export class ScreeningComponent implements OnInit, OnDestroy {
                 .getScreeningQuestion(this.screeningId)
                 .subscribe((response: IScreeningQuestion) => {
                     this.question = response;
+                    this.progress = Math.round(
+                        (this.question.questionId /
+                            this.screeningDetails.numberOfQuestions) *
+                            100
+                    );
                     this.video = this.videoElement.nativeElement;
                 })
         );
@@ -150,14 +150,13 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         this.saveResponse(body);
     }
 
-    startVideoRecording() {
+    startVideoRecording(): void {
         if (!this.isVideoRecording) {
             this.video.controls = false;
             this.isVideoRecording = true;
             this.videoRecordingService
                 .startRecording(this.videoConf)
                 .then((stream) => {
-                    // this.video.src = window.URL.createObjectURL(stream);
                     this.video.srcObject = stream;
                     this.video.play();
                 })
@@ -167,7 +166,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         }
     }
 
-    abortVideoRecording() {
+    abortVideoRecording(): void {
         if (this.isVideoRecording) {
             this.isVideoRecording = false;
             this.videoRecordingService.abortRecording();
@@ -175,7 +174,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         }
     }
 
-    stopVideoRecording() {
+    stopVideoRecording(): void {
         if (this.isVideoRecording) {
             this.videoRecordingService.stopRecording();
             this.video.srcObject = this.videoBlobUrl;
@@ -184,14 +183,14 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         }
     }
 
-    clearVideoRecordedData() {
+    clearVideoRecordedData(): void {
         this.videoBlobUrl = null;
         this.video.srcObject = null;
         this.video.controls = false;
         this.ref.detectChanges();
     }
 
-    downloadVideoRecordedData() {
+    downloadVideoRecordedData(): void {
         this._downloadFile(this.videoBlob, 'video/mp4', this.videoName);
     }
 
@@ -208,5 +207,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         document.body.removeChild(anchor);
     }
 
-    ngOnDestroy(): void {}
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 }

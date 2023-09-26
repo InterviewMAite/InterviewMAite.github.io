@@ -5,13 +5,14 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VideoRecordingService } from '@services/video-recording.service';
 
 import { PublicRoutingModule } from './public-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PublicComponent } from './public.component';
 import { ScreeningComponent } from './screening/screening.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { VideoRecordingService } from '@services/video-recording.service';
 
 @NgModule({
     declarations: [PublicComponent, NotFoundComponent, ScreeningComponent],
@@ -25,6 +26,7 @@ import { VideoRecordingService } from '@services/video-recording.service';
         LayoutModule,
         FormsModule,
         ReactiveFormsModule,
+        MatProgressBarModule,
     ],
     providers: [VideoRecordingService],
 })

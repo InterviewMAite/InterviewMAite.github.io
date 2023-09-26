@@ -48,6 +48,15 @@
 
                 <mat-step label="Questions" editable="false">
                     <div class="row">
+                        <div class="col-12 mb-3">
+                            <p class="progress_per">
+                                Progress - {{ progress }}%
+                            </p>
+                            <mat-progress-bar
+                                mode="determinate"
+                                [value]="progress"
+                            ></mat-progress-bar>
+                        </div>
                         <div
                             class="col-12 col-md-6"
                             *ngIf="question?.questionId"

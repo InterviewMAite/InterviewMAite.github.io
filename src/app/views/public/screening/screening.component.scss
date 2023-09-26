@@ -11,6 +11,10 @@
     margin: 0 !important;
 }
 
+.progress_per {
+    font-weight: 500;
+}
+
 .video-container {
     background-color: #000;
     border-radius: 5px;
@@ -19,4 +23,10 @@
 ::ng-deep .mat-horizontal-stepper-header,
 ::ng-deep .mat-vertical-stepper-header {
     pointer-events: none !important;
+}
+
+@media (max-width: 560px) {
+    .video {
+        height: 250px;
+    }
 }
