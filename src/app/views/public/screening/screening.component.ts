@@ -33,6 +33,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
     question: IScreeningQuestion = {} as IScreeningQuestion;
     stepperOrientation: Observable<StepperOrientation>;
 
+    invalid = false;
     isVideoRecording = false;
     videoBlobUrl: any;
     videoRecordedTime: any;
@@ -102,7 +103,12 @@ export class ScreeningComponent implements OnInit, OnDestroy {
             this.screeningService
                 .validateScreening(screeningId)
                 .subscribe((response: IValidateScreeningResponse) => {
-                    this.screeningDetails = response;
+                    if (!response?.inValid) {
+                        this.invalid = false;
+                        this.screeningDetails = response;
+                    } else {
+                        this.invalid = true;
+                    }
                 })
         );
     }
