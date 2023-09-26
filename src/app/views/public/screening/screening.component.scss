@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/variables';
+
 .video {
     width: 100%;
     height: 350px;
@@ -18,6 +20,11 @@
 .video-container {
     background-color: #000;
     border-radius: 5px;
+}
+
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+    background: $white-transparent !important;
 }
 
 ::ng-deep .mat-horizontal-stepper-header,

@@ -19,6 +19,7 @@ import {
     IScreeningQuestion,
     IValidateScreeningResponse,
 } from '@interfaces/screening.interface';
+import { AudioRecordingService } from '@services/audio-recording.service';
 
 @Component({
     selector: 'app-screening',
@@ -36,9 +37,14 @@ export class ScreeningComponent implements OnInit, OnDestroy {
     progress = 0;
     invalid = false;
     isVideoRecording = false;
+    isAudioRecording = false;
+    audioBlobUrl: any;
     videoBlobUrl: any;
+    audioRecordedTime: any;
     videoRecordedTime: any;
     videoBlob: any;
+    audioBlob: any;
+    audioName: any;
     videoName: any;
     videoConf = {
         video: { facingMode: 'user', width: 320 },
@@ -53,6 +59,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         public toastr: ToastrService,
         private screeningService: ScreeningService,
         public breakpointObserver: BreakpointObserver,
+        private audioRecordingService: AudioRecordingService,
         private videoRecordingService: VideoRecordingService,
         private ref: ChangeDetectorRef,
         private sanitizer: DomSanitizer
@@ -80,6 +87,25 @@ export class ScreeningComponent implements OnInit, OnDestroy {
             this.videoBlob = data.blob;
             this.videoName = data.title;
             this.videoBlobUrl = this.sanitizer.bypassSecurityTrustUrl(data.url);
+            this.ref.detectChanges();
+        });
+
+        this.audioRecordingService.recordingFailed().subscribe(() => {
+            this.isAudioRecording = false;
+            this.ref.detectChanges();
+        });
+
+        this.audioRecordingService.getRecordedTime().subscribe((time) => {
+            this.audioRecordedTime = time;
+            this.ref.detectChanges();
+        });
+
+        this.audioRecordingService.getRecordedBlob().subscribe((data) => {
+            this.audioBlob = data.blob;
+            this.audioName = data.title;
+            this.audioBlobUrl = this.sanitizer.bypassSecurityTrustUrl(
+                URL.createObjectURL(data.blob)
+            );
             this.ref.detectChanges();
         });
     }
@@ -208,7 +234,38 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         document.body.removeChild(anchor);
     }
 
+    startAudioRecording() {
+        if (!this.isAudioRecording) {
+            this.isAudioRecording = true;
+            this.audioRecordingService.startRecording();
+        }
+    }
+
+    abortAudioRecording() {
+        if (this.isAudioRecording) {
+            this.isAudioRecording = false;
+            this.audioRecordingService.abortRecording();
+        }
+    }
+
+    stopAudioRecording() {
+        if (this.isAudioRecording) {
+            this.audioRecordingService.stopRecording();
+            this.isAudioRecording = false;
+        }
+    }
+
+    clearAudioRecordedData() {
+        this.audioBlobUrl = null;
+    }
+
+    downloadAudioRecordedData() {
+        this._downloadFile(this.audioBlob, 'audio/mp3', this.audioName);
+    }
+
     ngOnDestroy(): void {
+        this.abortAudioRecording();
+        this.abortVideoRecording();
         this.subscription.unsubscribe();
     }
 }

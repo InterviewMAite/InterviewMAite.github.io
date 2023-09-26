@@ -13,6 +13,7 @@ import { PublicRoutingModule } from './public-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PublicComponent } from './public.component';
 import { ScreeningComponent } from './screening/screening.component';
+import { AudioRecordingService } from '@services/audio-recording.service';
 
 @NgModule({
     declarations: [PublicComponent, NotFoundComponent, ScreeningComponent],
@@ -28,6 +29,6 @@ import { ScreeningComponent } from './screening/screening.component';
         ReactiveFormsModule,
         MatProgressBarModule,
     ],
-    providers: [VideoRecordingService],
+    providers: [AudioRecordingService, VideoRecordingService],
 })
 export class PublicModule {}
