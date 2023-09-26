@@ -1,10 +1,7 @@
 <div class="container-fluid pt-1">
     <div class="row">
         <div class="col-12" *ngIf="!invalid">
-            <mat-stepper
-                class="example-stepper"
-                [orientation]="(stepperOrientation | async)!"
-            >
+            <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
                 <mat-step label="Start" editable="false">
                     <div class="row" *ngIf="screeningDetails?.id">
                         <div class="col-12 col-md-6">
@@ -23,23 +20,12 @@
                             <p>Email: {{ screeningDetails.candidateEmail }}</p>
                         </div>
                         <div class="col-12 col-md-6">
-                            <video
-                                controls
-                                autoplay
-                                class="video"
-                                src="assets/videos/intro.mp4"
-                                type="video/mp4"
-                            ></video>
+                            <video controls autoplay class="video" src="assets/videos/intro.mp4" type="video/mp4">
+                            </video>
                         </div>
                         <div class="col-12 text-right mt-4">
-                            <button
-                                type="button"
-                                mat-button
-                                mat-raised-button
-                                color="primary"
-                                matStepperNext
-                                (click)="getScreeningQuestion()"
-                            >
+                            <button type="button" mat-button mat-raised-button color="primary" matStepperNext
+                                (click)="getScreeningQuestion()">
                                 Start
                             </button>
                         </div>
@@ -52,24 +38,13 @@
                             <p class="progress_per">
                                 Progress - {{ progress }}%
                             </p>
-                            <mat-progress-bar
-                                mode="determinate"
-                                [value]="progress"
-                            ></mat-progress-bar>
+                            <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
                         </div>
-                        <div
-                            class="col-12 col-md-6"
-                            *ngIf="question?.questionId"
-                        >
+                        <div class="col-12 col-md-6" *ngIf="question?.questionId">
                             <div class="video-container">
                                 <h6 class="user">InterviewMAite</h6>
-                                <video
-                                    controls
-                                    autoplay
-                                    class="video"
-                                    [src]="question.questionLink"
-                                    type="video/mp4"
-                                ></video>
+                                <video controls autoplay class="video" [src]="question.questionLink" type="video/mp4">
+                                </video>
                             </div>
                             <h6 class="mt-3">
                                 <b>Q{{ question.questionId }}:</b>
@@ -82,107 +57,59 @@
                                     {{ screeningDetails.candidateFirstName }}
                                 </h6>
 
-                                <video
-                                    #videoElement
-                                    class="video"
-                                    [src]="videoBlobUrl"
-                                ></video>
+                                <video #videoElement class="video" [src]="videoBlobUrl" [muted]="false" [volume]=".1"
+                                    poster="assets/images/banner.svg">
+                                </video>
                             </div>
                             <!-- *ngIf="!isVideoRecording && videoBlobUrl" -->
                         </div>
-                        <div
-                            class="col-12 text-right mt-4"
-                            *ngIf="!question?.interviewComplete"
-                        >
+                        <div class="col-12 text-right mt-4" *ngIf="!question?.interviewComplete">
                             <div class="mt-3 mb-3">
-                                <button
-                                    class="start-button"
-                                    *ngIf="!isVideoRecording && !videoBlobUrl"
-                                    (click)="startVideoRecording()"
-                                >
+                                <button type="button" class="start-button" *ngIf="!isVideoRecording && !videoBlobUrl"
+                                    (click)="startVideoRecording()">
                                     Start Video Recording
                                 </button>
-                                <button
-                                    class="stop-button"
-                                    *ngIf="isVideoRecording && !videoBlobUrl"
-                                    (click)="stopVideoRecording()"
-                                >
+                                <button type="button" class="stop-button" *ngIf="isVideoRecording && !videoBlobUrl"
+                                    (click)="stopVideoRecording()">
                                     Stop Video Recording
                                 </button>
-                                <button
-                                    class="cancel-button"
-                                    *ngIf="!isVideoRecording && videoBlobUrl"
-                                    (click)="clearVideoRecordedData()"
-                                >
+                                <button type="button" class="cancel-button" *ngIf="!isVideoRecording && videoBlobUrl"
+                                    (click)="clearVideoRecordedData()">
                                     Clear Video Recording
                                 </button>
-                                <button
-                                    class="download-button"
-                                    *ngIf="!isVideoRecording && videoBlobUrl"
-                                    (click)="downloadVideoRecordedData()"
-                                >
+                                <button type="button" class="download-button" *ngIf="!isVideoRecording && videoBlobUrl"
+                                    (click)="downloadVideoRecordedData()">
                                     Download Video Recording
                                 </button>
-                                <div
-                                    id="videoTimer"
-                                    *ngIf="isVideoRecording && !videoBlobUrl"
-                                >
+                                <div id="videoTimer" *ngIf="isVideoRecording && !videoBlobUrl">
                                     {{ videoRecordedTime }}
                                 </div>
                             </div>
 
-                            <div
-                                *ngIf="
+                            <div *ngIf="
                                     screeningDetails.numberOfQuestions !==
                                     question.questionId
-                                "
-                            >
-                                <button
-                                    type="button"
-                                    mat-button
-                                    mat-raised-button
-                                    class="mr-4"
-                                    (click)="skip()"
-                                >
+                                ">
+                                <button type="button" mat-button mat-raised-button class="mr-4" (click)="skip()">
                                     Not Aware
                                 </button>
 
-                                <button
-                                    type="button"
-                                    mat-button
-                                    mat-raised-button
-                                    color="primary"
-                                    (click)="next()"
-                                >
+                                <button type="button" mat-button mat-raised-button color="primary" (click)="next()">
                                     Next
                                 </button>
                             </div>
 
-                            <div
-                                *ngIf="
+                            <div *ngIf="
                                     screeningDetails.numberOfQuestions ===
                                     question.questionId
-                                "
-                            >
-                                <button
-                                    type="button"
-                                    mat-button
-                                    mat-raised-button
-                                    class="mr-4"
-                                    matStepperNext
-                                    (click)="skip()"
-                                >
+                                ">
+                                <button type="button" mat-button mat-raised-button class="mr-4" matStepperNext
+                                    (click)="skip()">
                                     Not Aware
                                 </button>
 
-                                <button
-                                    type="button"
-                                    mat-button
-                                    mat-raised-button
-                                    color="primary"
-                                    matStepperNext
-                                    (click)="next()"
-                                >
+                                <button type="button" mat-button mat-raised-button color="primary" matStepperNext
+                                    (click)="next()">
                                     Next
                                 </button>
                             </div>
@@ -196,14 +123,8 @@
                             <p>
                                 Click 'Done' to complete the interview process.
                             </p>
-                            <button
-                                type="button"
-                                mat-button
-                                mat-raised-button
-                                color="primary"
-                                matStepperNext
-                                class="mt-5"
-                            >
+                            <button type="button" mat-button mat-raised-button color="primary" matStepperNext
+                                class="mt-5">
                                 Done
                             </button>
                         </div>
@@ -217,20 +138,9 @@
                             <h5 class="mb-3 mt-5">
                                 Thank you for using InterviewMAite.
                             </h5>
-                            <video
-                                controls
-                                autoplay
-                                class="video"
-                                src="assets/videos/thankyou.mp4"
-                                type="video/mp4"
-                            ></video>
-                            <button
-                                type="button"
-                                mat-button
-                                mat-raised-button
-                                routerLink="/"
-                                class="mt-5"
-                            >
+                            <video controls autoplay class="video" src="assets/videos/thankyou.mp4" type="video/mp4">
+                            </video>
+                            <button type="button" mat-button mat-raised-button routerLink="/" class="mt-5">
                                 Explore InterviewMAite
                             </button>
                         </div>
@@ -242,13 +152,7 @@
             <h5 class="my-5">
                 The session is invalid. Please contact with InterviewMAite.
             </h5>
-            <button
-                type="button"
-                mat-button
-                mat-raised-button
-                routerLink="/"
-                class="mt-1"
-            >
+            <button type="button" mat-button mat-raised-button routerLink="/" class="mt-1">
                 Explore InterviewMAite
             </button>
         </div>

@@ -71,8 +71,9 @@ export class VideoRecordingService {
     private record(): void {
         this.recorder = new RecordRTC(this.stream, {
             type: 'video',
-            mimeType: 'video/webm',
-            bitsPerSecond: 44000,
+            mimeType: 'video/mp4',
+            bitsPerSecond: 128000,
+            checkForInactiveTracks: true,
         });
         this.recorder.startRecording();
         this.startTime = moment();

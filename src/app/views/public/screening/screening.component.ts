@@ -42,7 +42,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
     videoName: any;
     videoConf = {
         video: { facingMode: 'user', width: 320 },
-        audio: true,
+        audio: { echoCancellation: true },
     };
     videoStream: MediaStream = {} as MediaStream;
     video: any;
@@ -115,10 +115,11 @@ export class ScreeningComponent implements OnInit, OnDestroy {
                 .subscribe((response: IScreeningQuestion) => {
                     this.question = response;
                     this.progress = Math.round(
-                        (this.question.questionId /
+                        ((this.question.questionId - 1) /
                             this.screeningDetails.numberOfQuestions) *
                             100
                     );
+
                     this.video = this.videoElement.nativeElement;
                 })
         );

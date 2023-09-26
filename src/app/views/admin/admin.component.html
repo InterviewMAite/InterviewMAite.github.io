@@ -32,34 +32,19 @@
 <ng-template #actionButton>
     <div class="text-right mb-3">
         <div class="btn-group dropleft">
-            <button
-                type="button"
-                class="btn dropdown-toggle btn-width"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                id="dropdownMenuButton"
-                [ngClass]="statusValue.class"
-            >
+            <button type="button" class="btn dropdown-toggle btn-width" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" id="dropdownMenuButton" [ngClass]="statusValue.class">
                 {{ statusValue.value }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a
-                    class="dropdown-item"
-                    (click)="changeStatus(status)"
-                    *ngFor="let status of statusMap"
-                >
+                <a class="dropdown-item" (click)="changeStatus(status)" *ngFor="let status of statusMap">
                     {{ status.value }}
                 </a>
             </div>
         </div>
     </div>
     <div class="text-right mb-3" *ngIf="status !== 'DELETED'">
-        <button
-            type="button"
-            class="btn btn-danger btn-width"
-            (click)="deleteCandidate()"
-        >
+        <button type="button" class="btn btn-danger btn-width" (click)="deleteCandidate()">
             Delete Candidate
         </button>
     </div>
