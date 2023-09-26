@@ -6,6 +6,7 @@ export interface IValidateScreeningResponse {
     errorMessage: string;
     id: string;
     inValid: boolean;
+    numberOfQuestions: number;
 }
 
 export interface IScreeningQuestion {
@@ -13,4 +14,9 @@ export interface IScreeningQuestion {
     questionLink: string;
     questionText: string;
     interviewComplete: boolean;
+}
+
+export interface IBodyScreeningResponse {
+    questionId: number;
+    candidateResponse: string;
 }

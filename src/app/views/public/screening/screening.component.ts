@@ -15,6 +15,7 @@ import { VideoRecordingService } from '@services/video-recording.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ScreeningService } from '@services/screening.service';
 import {
+    IBodyScreeningResponse,
     IScreeningQuestion,
     IValidateScreeningResponse,
 } from '@interfaces/screening.interface';
@@ -115,6 +116,32 @@ export class ScreeningComponent implements OnInit, OnDestroy {
                     this.video = this.videoElement.nativeElement;
                 })
         );
+    }
+
+    saveResponse(body: IBodyScreeningResponse): void {
+        this.subscription.add(
+            this.screeningService
+                .saveResponses(this.screeningId, body)
+                .subscribe((response: any) => {
+                    this.getScreeningQuestion();
+                })
+        );
+    }
+
+    skip(): void {
+        const body: IBodyScreeningResponse = {
+            questionId: this.question.questionId,
+            candidateResponse: '',
+        };
+        this.saveResponse(body);
+    }
+
+    next(): void {
+        const body: IBodyScreeningResponse = {
+            questionId: this.question.questionId,
+            candidateResponse: 'candidateResponse',
+        };
+        this.saveResponse(body);
     }
 
     startVideoRecording() {

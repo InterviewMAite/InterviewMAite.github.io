@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ConstantService } from './constant.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ICandidate } from '@interfaces/candidate.interface';
 import {
+    IBodyScreeningResponse,
     IScreeningQuestion,
     IValidateScreeningResponse,
 } from '@interfaces/screening.interface';
@@ -28,12 +28,15 @@ export class ScreeningService {
         );
     }
 
-    saveResponses(screeningID: string): Observable<any> {
+    saveResponses(
+        screeningID: string,
+        body: IBodyScreeningResponse
+    ): Observable<any> {
         return this.http.post<any>(
             this.constantService.getUrl(
                 `${this.constantService.SCREENING_RESPONSE_ID}/${screeningID}`
             ),
-            {}
+            body
         );
     }
 
