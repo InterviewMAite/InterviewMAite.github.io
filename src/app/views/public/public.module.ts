@@ -1,28 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VideoRecordingService } from '@services/video-recording.service';
 
 import { PublicRoutingModule } from './public-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PublicComponent } from './public.component';
 import { ScreeningComponent } from './screening/screening.component';
-import { VgCoreModule } from '@videogular/ngx-videogular/core';
-import { VgControlsModule } from '@videogular/ngx-videogular/controls';
-import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
-import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+import { AudioRecordingService } from '@services/audio-recording.service';
 
 @NgModule({
-    declarations: [
-        PublicComponent,
-        NotFoundComponent,
-        ScreeningComponent
-    ],
+    declarations: [PublicComponent, NotFoundComponent, ScreeningComponent],
     imports: [
         CommonModule,
         PublicRoutingModule,
-        VgCoreModule,
-        VgControlsModule,
-        VgOverlayPlayModule,
-        VgBufferingModule,
-    ]
+        MatStepperModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        LayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatProgressBarModule,
+    ],
+    providers: [AudioRecordingService, VideoRecordingService],
 })
-export class PublicModule { }
+export class PublicModule {}

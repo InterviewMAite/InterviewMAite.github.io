@@ -4,7 +4,7 @@
             <div class="col-12 d-block d-sm-none small-screen">
                 <ng-container *ngTemplateOutlet="actionButton"> </ng-container>
             </div>
-            <div class="col-12 col-sm-8 mb-3">
+            <div class="col-12 col-sm-6 mb-3">
                 <h5 class="mt-0">{{ candidateDetails.applyingForPosition }}</h5>
                 <p>
                     <b>Name:</b> {{ candidateDetails.firstName }}
@@ -14,7 +14,7 @@
                 <p><b>Mobile Number:</b> {{ candidateDetails.mobileNumber }}</p>
                 <p><b>Date of Birth:</b> {{ candidateDetails.dob | date }}</p>
             </div>
-            <div class="col-12 col-sm-4 d-none d-sm-block">
+            <div class="col-12 col-sm-6 d-none d-sm-block">
                 <ng-container *ngTemplateOutlet="actionButton"> </ng-container>
             </div>
         </div>
@@ -30,46 +30,25 @@
 </div>
 
 <ng-template #actionButton>
-    <div class="text-right mb-3">
-        <button
-            type="button"
-            class="btn btn-danger btn-width"
-            (click)="deleteCandidate()"
-        >
-            Delete Candidate
-        </button>
-    </div>
-    <div class="text-right mb-3">
-        <div class="btn-group dropleft">
-            <button
-                type="button"
-                class="btn dropdown-toggle btn-width"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                id="dropdownMenuButton"
-                [ngClass]="statusValue.class"
-            >
+    <div class="action-btn-group">
+        <div class="btn-group dropleft mb-3">
+            <button type="button" class="btn dropdown-toggle btn-width btn-sm" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton" [ngClass]="statusValue.class">
                 {{ statusValue.value }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a
-                    class="dropdown-item"
-                    (click)="changeStatus(status)"
-                    *ngFor="let status of statusMap"
-                >
+                <a class="dropdown-item" (click)="changeStatus(status)" *ngFor="let status of statusMap">
                     {{ status.value }}
                 </a>
             </div>
         </div>
-    </div>
-    <div class="text-right mb-3">
-        <button
-            type="button"
-            class="btn btn-outline-info btn-width"
-            (click)="navigateToScreening()"
-        >
-            Screening Link
+        <button type="button" class="btn btn-danger btn-width ml-3 btn-sm mb-3" (click)="deleteCandidate()"
+            *ngIf="status !== 'DELETED'">
+            Delete Candidate
+        </button>
+        <button type="button" mat-fab extended color="accent" aria-label="Overall Rating"
+            class="icon-button-small mb-3 ml-3" *ngIf="status === 'COMPLETED'" (click)="openDialog()">
+            <mat-icon>star</mat-icon>{{result.overallRating}}
         </button>
     </div>
 </ng-template>

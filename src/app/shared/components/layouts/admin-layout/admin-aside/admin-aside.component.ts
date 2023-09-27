@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ICandidate } from '@interfaces/candidate.interface';
+import { CandidateService } from '@services/candidate.service';
+import { ConstantService } from '@services/constant.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { ICandidate } from 'src/app/shared/interfaces/candidate.interface';
-import { CandidateService } from 'src/app/shared/services/candidate.service';
-import { ConstantService } from 'src/app/shared/services/constant.service';
 
 @Component({
     selector: 'app-admin-aside',
@@ -58,10 +58,11 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
             DELETED: [true],
             REJECTED: [true],
             SELECTED: [true],
+            COMPLETED: [true],
         });
 
         this.subscription.add(
-            this.form.valueChanges.subscribe((value) => {
+            this.form.valueChanges.subscribe((value: any) => {
                 var filtered = Object.keys(value).filter((key) => value[key]);
 
                 this.filteredCandidate = this.candidates.filter((candidate) =>

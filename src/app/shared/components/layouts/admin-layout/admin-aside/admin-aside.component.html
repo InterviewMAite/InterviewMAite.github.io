@@ -1,89 +1,61 @@
 <div class="my-3">
     <div class="text-right">
         <b class="float-left ml-2">Candidates</b>
-        <button
-            class="btn btn-sm mr-2"
-            type="button"
-            (click)="toggleFilter()"
-            [ngClass]="{
+        <button class="btn btn-sm mr-2" type="button" (click)="toggleFilter()" [ngClass]="{
                 'btn-outline-warning': !filter,
                 'btn-outline-success': filter
-            }"
-        >
+            }">
             Filter
         </button>
     </div>
     <div *ngIf="filter" class="mx-2">
         <form [formGroup]="form">
             <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    formControlName="PENDING"
-                    type="checkbox"
-                    id="inlineCheckbox1"
-                    value="PENDING"
-                />
+                <input class="form-check-input" formControlName="PENDING" type="checkbox" id="inlineCheckbox1"
+                    value="PENDING" />
                 <label class="form-check-label" for="inlineCheckbox1">
                     Pending
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    formControlName="SHORTLISTED"
-                    type="checkbox"
-                    id="inlineCheckbox2"
-                    value="SHORTLISTED"
-                />
+                <input class="form-check-input" formControlName="SHORTLISTED" type="checkbox" id="inlineCheckbox2"
+                    value="SHORTLISTED" />
                 <label class="form-check-label" for="inlineCheckbox2">
                     Shortlisted
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    formControlName="ON_HOLD"
-                    type="checkbox"
-                    id="inlineCheckbox3"
-                    value="ON_HOLD"
-                />
+                <input class="form-check-input" formControlName="ON_HOLD" type="checkbox" id="inlineCheckbox3"
+                    value="ON_HOLD" />
                 <label class="form-check-label" for="inlineCheckbox3">
                     On Hold
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    formControlName="DELETED"
-                    type="checkbox"
-                    id="inlineCheckbox4"
-                    value="DELETED"
-                />
+                <input class="form-check-input" formControlName="DELETED" type="checkbox" id="inlineCheckbox4"
+                    value="DELETED" />
                 <label class="form-check-label" for="inlineCheckbox4">
                     Deleted
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    formControlName="SELECTED"
-                    type="checkbox"
-                    id="inlineCheckbox5"
-                    value="SELECTED"
-                />
+                <input class="form-check-input" formControlName="SELECTED" type="checkbox" id="inlineCheckbox5"
+                    value="SELECTED" />
                 <label class="form-check-label" for="inlineCheckbox5">
                     Selected
                 </label>
             </div>
             <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    formControlName="REJECTED"
-                    type="checkbox"
-                    id="inlineCheckbox6"
-                    value="REJECTED"
-                />
+                <input class="form-check-input" formControlName="COMPLETED" type="checkbox" id="inlineCheckbox6"
+                    value="COMPLETED" />
                 <label class="form-check-label" for="inlineCheckbox6">
+                    Completed
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" formControlName="REJECTED" type="checkbox" id="inlineCheckbox7"
+                    value="REJECTED" />
+                <label class="form-check-label" for="inlineCheckbox7">
                     Rejected
                 </label>
             </div>
@@ -91,15 +63,10 @@
     </div>
 </div>
 <div class="candidates">
-    <div
-        class="candidate card in-active"
-        [ngClass]="{
+    <div class="candidate card in-active" [ngClass]="{
             active: selectedCandidate === candidate.id,
             'in-active': selectedCandidate !== candidate.id
-        }"
-        *ngFor="let candidate of filteredCandidate"
-        (click)="viewDetails(candidate)"
-    >
+        }" *ngFor="let candidate of filteredCandidate" (click)="viewDetails(candidate)">
         <div class="card-body">
             <p class="name">
                 {{ candidate.firstName }} {{ candidate.lastName }}

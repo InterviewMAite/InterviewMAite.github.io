@@ -5,13 +5,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ScreeningComponent } from './screening/screening.component';
 
 const routes: Routes = [
-    { path: "", component: PublicComponent },
-    { path: "screening/:candidateId", component: ScreeningComponent },
-    { path: "page-not-found", component: NotFoundComponent },
+    { path: '', component: PublicComponent },
+    { path: 'screening/:screeningId', component: ScreeningComponent },
+    { path: 'page-not-found', component: NotFoundComponent },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class PublicRoutingModule { }
+export class PublicRoutingModule {}

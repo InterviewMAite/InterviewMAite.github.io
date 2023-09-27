@@ -1,9 +1,39 @@
-.an-1 {
-    font-weight: 900;
-    font-size: 3vw;
+@import '../../../../assets/styles/variables';
+
+.video {
+    width: 100%;
+    height: 350px;
+    background: #000;
 }
 
-.an-1 .letter {
-    display: inline-block;
-    line-height: 1em;
+.user {
+    text-align: center;
+    color: #fff !important;
+    padding: 15px !important;
+    margin: 0 !important;
+}
+
+.progress_per {
+    font-weight: 500;
+}
+
+.video-container {
+    background-color: #000;
+    border-radius: 5px;
+}
+
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+    background: $white-transparent !important;
+}
+
+::ng-deep .mat-horizontal-stepper-header,
+::ng-deep .mat-vertical-stepper-header {
+    pointer-events: none !important;
+}
+
+@media (max-width: 560px) {
+    .video {
+        height: 250px;
+    }
 }

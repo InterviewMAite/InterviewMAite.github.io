@@ -1,13 +1,22 @@
-export interface ICandidate {
-    name: string;
-    phone: number;
-    email: string;
-    candidateId: number;
-    jobId: string;
-    screeningId: string;
+export interface IValidateScreeningResponse {
+    appliedPosition: string;
+    candidateEmail: string;
+    candidateFirstName: string;
+    candidatePhoneNumber: string;
+    errorMessage: string;
+    id: string;
+    inValid: boolean;
+    numberOfQuestions: number;
 }
 
-export interface IJob {
-    jobId: string;
-    title: string;
+export interface IScreeningQuestion {
+    questionId: number;
+    questionLink: string;
+    questionText: string;
+    interviewComplete: boolean;
+}
+
+export interface IBodyScreeningResponse {
+    questionId: number;
+    candidateResponse: string;
 }

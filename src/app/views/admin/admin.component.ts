@@ -2,13 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { statuses } from './data';
 import {
     ICandidate,
     IQuestion,
+    IRating,
     IStatus,
-} from 'src/app/shared/interfaces/candidate.interface';
-import { CandidateService } from 'src/app/shared/services/candidate.service';
-import { status } from './data';
+} from '@interfaces/candidate.interface';
+import { ScreeningService } from '@services/screening.service';
+import { CandidateService } from '@services/candidate.service';
+import { OverallRatingComponent } from './overall-rating/overall-rating.component';
 
 @Component({
     selector: 'app-admin',
@@ -23,13 +27,16 @@ export class AdminComponent implements OnInit, OnDestroy {
     screeningLink: string = '';
     status: string = '';
     statusValue: IStatus = {} as IStatus;
-    statusMap: IStatus[] = status;
+    statusMap: IStatus[] = statuses;
+    result: IRating = {} as IRating;
 
     constructor(
         public toastr: ToastrService,
         public router: Router,
         public activatedRoute: ActivatedRoute,
-        private candidateService: CandidateService
+        private candidateService: CandidateService,
+        private screeningService: ScreeningService,
+        public dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -42,6 +49,18 @@ export class AdminComponent implements OnInit, OnDestroy {
         });
     }
 
+    openDialog() {
+        const dialogRef = this.dialog.open(OverallRatingComponent, {
+            data: {
+                result: this.result,
+            },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log(`Dialog result: ${result}`);
+        });
+    }
+
     getCandidateById(candidateId: any): void {
         this.subscription.add(
             this.candidateService
@@ -50,6 +69,12 @@ export class AdminComponent implements OnInit, OnDestroy {
                     this.candidateDetails = response;
                     this.questions = response.questionnaire;
                     this.status = response.status;
+
+                    if (this.status === 'COMPLETED') {
+                        this.getCandidateResultById(
+                            this.candidateDetails.screeningId
+                        );
+                    }
                     const statusVar = this.statusMap.find(
                         (status: IStatus) => status.key === response.status
                     );
@@ -59,6 +84,16 @@ export class AdminComponent implements OnInit, OnDestroy {
 
                     this.screeningLink =
                         window.location.origin + '/screening/' + response.id;
+                })
+        );
+    }
+
+    getCandidateResultById(candidateId: any): void {
+        this.subscription.add(
+            this.screeningService
+                .getScreeningResult(candidateId)
+                .subscribe((response: IRating) => {
+                    this.result = response;
                 })
         );
     }

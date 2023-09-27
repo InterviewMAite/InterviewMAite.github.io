@@ -14,6 +14,10 @@ export class ConstantService {
     constructor() {}
 
     CANDIDATE = '/candidate';
+    VALIDATE_SCREENING_ID = '/screening/validate';
+    SCREENING_RESPONSE_ID = '/screening/response';
+    GET_SCREENING_QUESTION = '/screening/next';
+    GET_SCREENING_RESULT = '/screening/result';
 
     getUrl(path: string, params: string[] = []): string {
         return !params.length

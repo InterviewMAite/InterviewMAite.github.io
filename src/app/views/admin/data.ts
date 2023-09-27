@@ -1,6 +1,6 @@
-import { IStatus } from 'src/app/shared/interfaces/candidate.interface';
+import { IStatus } from '@interfaces/candidate.interface';
 
-export const status: IStatus[] = [
+export const statuses: IStatus[] = [
     {
         key: 'PENDING',
         value: 'Pending',
@@ -29,6 +29,11 @@ export const status: IStatus[] = [
     {
         key: 'SELECTED',
         value: 'Selected',
+        class: 'btn-outline-success',
+    },
+    {
+        key: 'COMPLETED',
+        value: 'Completed',
         class: 'btn-outline-success',
     },
 ];
