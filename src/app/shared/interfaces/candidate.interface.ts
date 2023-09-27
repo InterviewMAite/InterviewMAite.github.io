@@ -6,6 +6,7 @@ export interface ICandidate {
     dob: string;
     applyingForPosition: string;
     status: string;
+    screeningId: string;
     id: number;
     questionnaire: IQuestion[];
 }

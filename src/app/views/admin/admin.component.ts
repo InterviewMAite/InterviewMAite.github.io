@@ -9,6 +9,7 @@ import {
     IQuestion,
     IStatus,
 } from '@interfaces/candidate.interface';
+import { ScreeningService } from '@services/screening.service';
 
 @Component({
     selector: 'app-admin',
@@ -24,12 +25,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     status: string = '';
     statusValue: IStatus = {} as IStatus;
     statusMap: IStatus[] = statuses;
+    rating: number = 0;
 
     constructor(
         public toastr: ToastrService,
         public router: Router,
         public activatedRoute: ActivatedRoute,
-        private candidateService: CandidateService
+        private candidateService: CandidateService,
+        private screeningService: ScreeningService
     ) {}
 
     ngOnInit(): void {
@@ -50,6 +53,12 @@ export class AdminComponent implements OnInit, OnDestroy {
                     this.candidateDetails = response;
                     this.questions = response.questionnaire;
                     this.status = response.status;
+
+                    if (this.status === 'COMPLETED') {
+                        this.getCandidateResultById(
+                            this.candidateDetails.screeningId
+                        );
+                    }
                     const statusVar = this.statusMap.find(
                         (status: IStatus) => status.key === response.status
                     );
@@ -59,6 +68,16 @@ export class AdminComponent implements OnInit, OnDestroy {
 
                     this.screeningLink =
                         window.location.origin + '/screening/' + response.id;
+                })
+        );
+    }
+
+    getCandidateResultById(candidateId: any): void {
+        this.subscription.add(
+            this.screeningService
+                .getScreeningResult(candidateId)
+                .subscribe((response: any) => {
+                    this.rating = response.overallRating;
                 })
         );
     }

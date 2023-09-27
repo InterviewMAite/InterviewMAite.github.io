@@ -31,4 +31,9 @@ export const statuses: IStatus[] = [
         value: 'Selected',
         class: 'btn-outline-success',
     },
+    {
+        key: 'COMPLETED',
+        value: 'Completed',
+        class: 'btn-outline-success',
+    },
 ];

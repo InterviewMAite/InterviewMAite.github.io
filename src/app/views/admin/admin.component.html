@@ -30,6 +30,9 @@
 </div>
 
 <ng-template #actionButton>
+    <div class="text-right mb-3" *ngIf="status === 'COMPLETED'">
+        <h6>Overall Rating: {{rating}} </h6>
+    </div>
     <div class="text-right mb-3">
         <div class="btn-group dropleft">
             <button type="button" class="btn dropdown-toggle btn-width" data-toggle="dropdown" aria-haspopup="true"

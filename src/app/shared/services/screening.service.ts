@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConstantService } from './constant.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import {
     IBodyScreeningResponse,
     IScreeningQuestion,
@@ -44,6 +45,14 @@ export class ScreeningService {
         return this.http.get<IScreeningQuestion>(
             this.constantService.getUrl(
                 `${this.constantService.GET_SCREENING_QUESTION}/${screeningID}`
+            )
+        );
+    }
+
+    getScreeningResult(screeningID: string): Observable<any> {
+        return this.http.get<any>(
+            this.constantService.getUrl(
+                `${this.constantService.GET_SCREENING_RESULT}/${screeningID}`
             )
         );
     }

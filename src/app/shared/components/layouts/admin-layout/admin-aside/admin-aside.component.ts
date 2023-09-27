@@ -58,6 +58,7 @@ export class AdminAsideComponent implements OnInit, OnDestroy {
             DELETED: [true],
             REJECTED: [true],
             SELECTED: [true],
+            COMPLETED: [true],
         });
 
         this.subscription.add(

@@ -1,6 +1,7 @@
 import {
     ChangeDetectorRef,
     Component,
+    NgZone,
     OnDestroy,
     OnInit,
     ViewChild,
@@ -20,7 +21,7 @@ import {
     IValidateScreeningResponse,
 } from '@interfaces/screening.interface';
 import { AudioRecordingService } from '@services/audio-recording.service';
-
+import { VoiceRecognitionService } from '@services/voice-recognition.service';
 @Component({
     selector: 'app-screening',
     templateUrl: './screening.component.html',
@@ -53,6 +54,9 @@ export class ScreeningComponent implements OnInit, OnDestroy {
     videoStream: MediaStream = {} as MediaStream;
     video: any;
 
+    speechText: string = '';
+    isUserSpeaking: boolean = false;
+
     constructor(
         public activatedRoute: ActivatedRoute,
         public router: Router,
@@ -61,6 +65,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
         public breakpointObserver: BreakpointObserver,
         private audioRecordingService: AudioRecordingService,
         private videoRecordingService: VideoRecordingService,
+        private voiceRecognition: VoiceRecognitionService,
         private ref: ChangeDetectorRef,
         private sanitizer: DomSanitizer
     ) {
@@ -117,6 +122,32 @@ export class ScreeningComponent implements OnInit, OnDestroy {
                 this.validateScreeningId(this.screeningId);
             }
         });
+
+        this.initVoiceInput();
+    }
+
+    initVoiceInput(): void {
+        // Subscription for initializing and this will call when user stopped speaking.
+        this.voiceRecognition.init().subscribe(() => {
+            // User has stopped recording
+        });
+
+        this.voiceRecognition.speechInput().subscribe((input: string) => {
+            if (input) {
+                this.speechText = input;
+            }
+        });
+    }
+
+    startRecording(): void {
+        this.speechText = '';
+        this.isUserSpeaking = true;
+        this.voiceRecognition.start();
+    }
+
+    stopRecording(): void {
+        this.voiceRecognition.stop();
+        this.isUserSpeaking = false;
     }
 
     validateScreeningId(screeningId: string): void {
@@ -156,6 +187,7 @@ export class ScreeningComponent implements OnInit, OnDestroy {
             this.screeningService
                 .saveResponses(this.screeningId, body)
                 .subscribe((response: any) => {
+                    this.speechText = '';
                     this.getScreeningQuestion();
                 })
         );
@@ -172,9 +204,10 @@ export class ScreeningComponent implements OnInit, OnDestroy {
     next(): void {
         const body: IBodyScreeningResponse = {
             questionId: this.question.questionId,
-            candidateResponse: 'candidateResponse',
+            candidateResponse: this.speechText,
         };
         this.saveResponse(body);
+        this.clearVideoRecordedData();
     }
 
     startVideoRecording(): void {
