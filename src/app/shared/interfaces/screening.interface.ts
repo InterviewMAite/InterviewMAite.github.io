@@ -20,7 +20,3 @@ export interface IBodyScreeningResponse {
     questionId: number;
     candidateResponse: string;
 }
-
-export interface IWindow extends Window {
-    webkitSpeechRecognition: any;
-}

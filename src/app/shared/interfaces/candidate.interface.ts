@@ -22,3 +22,20 @@ export interface IStatus {
     value: string;
     class: string;
 }
+
+export interface IRating {
+    appliedForPosition: string;
+    candidateEmail: string;
+    candidateName: string;
+    candidatePhone: string;
+    overallRating: number;
+    questionResults: IQuestionResult[];
+}
+
+export interface IQuestionResult {
+    aiFeedback: string;
+    candidateResponse: string;
+    question: string;
+    questionSequence: number;
+    rating: number;
+}

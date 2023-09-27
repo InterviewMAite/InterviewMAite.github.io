@@ -1,4 +1,4 @@
-@import "../../../../../../assets/styles/variables";
+@import '../../../../../../assets/styles/variables';
 
 .candidates {
     max-height: calc(100vh - (#{$header-height} + #{$footer-height} + 50px));
@@ -39,12 +39,16 @@
                 border-left: 5px solid #878c92;
             }
         }
-
     }
-
 }
 
 .form-check-label {
     cursor: pointer;
     font-size: 14px;
+}
+
+@media (max-width: 767px) {
+    .candidates {
+        max-height: calc(50vh - (#{$header-height} + #{$footer-height} + 50px));
+    }
 }

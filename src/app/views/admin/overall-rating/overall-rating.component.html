@@ -1,0 +1,27 @@
+<h6 mat-dialog-title>
+    {{results.candidateName}} || {{results.appliedForPosition}}
+    || Overall Rating: {{results.overallRating}}
+</h6>
+
+<mat-dialog-content class="mat-typography">
+    <h6><b>Question Results:</b></h6>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let result of results.questionResults">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <b>Q: {{result.question}}</b>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p><b>Candidate Response:</b></p>
+            <p class="mb-2">{{result.candidateResponse}}</p>
+            <p><b>AI Feedback:</b></p>
+            <p class="mb-2">{{result.aiFeedback}}</p>
+            <p><b>Rating:</b></p>
+            <p>{{result.rating}}</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

@@ -2,14 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { CandidateService } from 'src/app/shared/services/candidate.service';
+import { MatDialog } from '@angular/material/dialog';
 import { statuses } from './data';
 import {
     ICandidate,
     IQuestion,
+    IRating,
     IStatus,
 } from '@interfaces/candidate.interface';
 import { ScreeningService } from '@services/screening.service';
+import { CandidateService } from '@services/candidate.service';
+import { OverallRatingComponent } from './overall-rating/overall-rating.component';
 
 @Component({
     selector: 'app-admin',
@@ -25,14 +28,15 @@ export class AdminComponent implements OnInit, OnDestroy {
     status: string = '';
     statusValue: IStatus = {} as IStatus;
     statusMap: IStatus[] = statuses;
-    rating: number = 0;
+    result: IRating = {} as IRating;
 
     constructor(
         public toastr: ToastrService,
         public router: Router,
         public activatedRoute: ActivatedRoute,
         private candidateService: CandidateService,
-        private screeningService: ScreeningService
+        private screeningService: ScreeningService,
+        public dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -42,6 +46,18 @@ export class AdminComponent implements OnInit, OnDestroy {
 
                 this.getCandidateById(this.candidateID);
             }
+        });
+    }
+
+    openDialog() {
+        const dialogRef = this.dialog.open(OverallRatingComponent, {
+            data: {
+                result: this.result,
+            },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log(`Dialog result: ${result}`);
         });
     }
 
@@ -76,8 +92,8 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.subscription.add(
             this.screeningService
                 .getScreeningResult(candidateId)
-                .subscribe((response: any) => {
-                    this.rating = response.overallRating;
+                .subscribe((response: IRating) => {
+                    this.result = response;
                 })
         );
     }

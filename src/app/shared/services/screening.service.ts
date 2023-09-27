@@ -8,6 +8,7 @@ import {
     IScreeningQuestion,
     IValidateScreeningResponse,
 } from '@interfaces/screening.interface';
+import { IRating } from '@interfaces/candidate.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -49,8 +50,8 @@ export class ScreeningService {
         );
     }
 
-    getScreeningResult(screeningID: string): Observable<any> {
-        return this.http.get<any>(
+    getScreeningResult(screeningID: string): Observable<IRating> {
+        return this.http.get<IRating>(
             this.constantService.getUrl(
                 `${this.constantService.GET_SCREENING_RESULT}/${screeningID}`
             )

@@ -1,9 +1,24 @@
 .btn-width {
-    width: 150px;
+    width: 130px;
 }
 
 .small-screen {
     .text-right {
         text-align: left !important;
+    }
+}
+
+.icon-button-small {
+    height: 31px;
+    vertical-align: bottom;
+}
+
+.action-btn-group {
+    text-align: right;
+}
+
+@media (max-width: 767px) {
+    .action-btn-group {
+        text-align: center;
     }
 }
