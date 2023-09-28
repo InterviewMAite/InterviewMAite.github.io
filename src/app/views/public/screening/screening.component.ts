@@ -170,14 +170,19 @@ export class ScreeningComponent implements OnInit, OnDestroy {
             this.screeningService
                 .getScreeningQuestion(this.screeningId)
                 .subscribe((response: IScreeningQuestion) => {
+                    debugger;
                     this.question = response;
-                    this.progress = Math.round(
-                        ((this.question.questionId - 1) /
-                            this.screeningDetails.numberOfQuestions) *
-                            100
-                    );
+                    if (!response.interviewComplete) {
+                        this.progress = Math.round(
+                            ((this.question.questionId - 1) /
+                                this.screeningDetails.numberOfQuestions) *
+                                100
+                        );
 
-                    this.video = this.videoElement.nativeElement;
+                        this.video = this.videoElement.nativeElement;
+                        this.startRecording();
+                        this.startVideoRecording();
+                    }
                 })
         );
     }

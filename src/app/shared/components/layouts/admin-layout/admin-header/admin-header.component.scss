@@ -1,4 +1,4 @@
-@import "../../../../../../assets/styles/variables";
+@import '../../../../../../assets/styles/variables';
 
 .toolbar {
     position: absolute;
@@ -34,4 +34,8 @@
 
 .spacer {
     flex: 1;
+}
+
+::ng-deep #bp-web-widget-container {
+    display: none !important;
 }

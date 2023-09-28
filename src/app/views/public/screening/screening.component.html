@@ -20,7 +20,8 @@
                             <p>Email: {{ screeningDetails.candidateEmail }}</p>
                         </div>
                         <div class="col-12 col-md-6">
-                            <video controls autoplay class="video" src="assets/videos/intro.mp4" type="video/mp4">
+                            <video controls autoplay class="video" src="assets/videos/intro.mp4" type="video/mp4"
+                                id="intro">
                             </video>
                         </div>
                         <div class="col-12 text-right mt-4">
@@ -33,7 +34,7 @@
                 </mat-step>
 
                 <mat-step label="Questions" editable="false">
-                    <div class="row">
+                    <div class="row" *ngIf="!question?.interviewComplete">
                         <div class="col-12 mb-3">
                             <p class="progress_per">
                                 Progress - {{ progress }}%
@@ -156,7 +157,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step editable="false" label="Done">
+                <mat-step label="Done" editable="false">
                     <div class="row">
                         <div class="col-12 col-md-3"></div>
                         <div class="col-12 col-md-6 text-center">
