@@ -1,4 +1,4 @@
-@import "../../../../../assets/styles/variables";
+@import '../../../../../assets/styles/variables';
 
 .public-wrap {
     .public-header {
@@ -14,14 +14,15 @@
         margin-top: $header-height;
         min-height: calc(100vh - (#{$header-height} + #{$footer-height}));
     }
-
 }
 
 @media only screen and (max-width: 1200px) {
     .public-wrap {
         .body-content {
             margin-top: $header-height-responsive-view;
-            min-height: calc(100vh - (#{$header-height-responsive-view} + #{$footer-height}));
+            min-height: calc(
+                100vh - (#{$header-height-responsive-view} + #{$footer-height})
+            );
         }
     }
 }

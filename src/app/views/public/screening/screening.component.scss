@@ -32,6 +32,10 @@
     pointer-events: none !important;
 }
 
+::ng-deep #bp-web-widget-container {
+    display: none !important;
+}
+
 @media (max-width: 560px) {
     .video {
         height: 250px;
